@@ -68,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\AdminDashboard.aspx" />
+    <Content Include="App_Data\CrowdBridgeDB.mdf" />
+    <Content Include="App_Data\CrowdBridgeDB_log.ldf">
+      <DependentUpon>CrowdBridgeDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
