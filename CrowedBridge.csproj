@@ -72,6 +72,7 @@
     <Content Include="App_Data\CrowdBridgeDB_log.ldf">
       <DependentUpon>CrowdBridgeDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\.gitkeep.txt" />
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
@@ -101,7 +102,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\.gitkeep" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
