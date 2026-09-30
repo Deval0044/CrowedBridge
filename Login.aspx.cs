@@ -1,61 +1,56 @@
 ﻿using System;
-using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
 
-namespace CrowedBridge
+namespace CrowdBridge
 {
     public partial class Login : System.Web.UI.Page
     {
-        // Explicit control declarations
-        protected Button btnRoleBacker;
-        protected Button btnRoleCreator;
-        protected Button btnRoleAdmin;
-        protected HiddenField hfSelectedRole;
-        protected TextBox txtEmail;
-        protected TextBox txtPassword;
-        protected Button btnSignIn;
+        protected global::System.Web.UI.WebControls.RadioButtonList rblRole;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.WebControls.Label lblError;
+
+        string connStr;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            var connSettings = ConfigurationManager.ConnectionStrings["CrowdBridgeDB"];
+            if (connSettings != null)
             {
-                UpdateRoleUI();
+                connStr = connSettings.ConnectionString;
             }
-        }
-
-        protected void SelectRole_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            hfSelectedRole.Value = btn.CommandArgument;
-            UpdateRoleUI();
-        }
-
-        private void UpdateRoleUI()
-        {
-            string selected = hfSelectedRole.Value;
-
-            btnRoleBacker.CssClass = selected == "Backer" ? "py-2 text-xs font-bold rounded-xl bg-white text-orange-600 shadow-sm border border-gray-200" : "py-2 text-xs font-bold rounded-xl text-gray-500 hover:text-gray-800";
-            btnRoleCreator.CssClass = selected == "Creator" ? "py-2 text-xs font-bold rounded-xl bg-white text-orange-600 shadow-sm border border-gray-200" : "py-2 text-xs font-bold rounded-xl text-gray-500 hover:text-gray-800";
-            btnRoleAdmin.CssClass = selected == "Admin" ? "py-2 text-xs font-bold rounded-xl bg-white text-orange-600 shadow-sm border border-gray-200" : "py-2 text-xs font-bold rounded-xl text-gray-500 hover:text-gray-800";
+            else
+            {
+                lblError.Text = "Connection string 'CrowdBridgeDB' missing from Web.config!";
+            }
         }
 
         protected void btnSignIn_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            if (string.IsNullOrEmpty(connStr)) return;
+
+            using (SqlConnection con = new SqlConnection(connStr))
             {
-                string role = hfSelectedRole.Value;
-                string email = txtEmail.Text.Trim();
+                string query = "SELECT COUNT(*) FROM Users WHERE UserEmail=@Email AND Password=@Pass AND Role=@Role";
+                SqlCommand cmd = new SqlCommand(query, con);
 
-                Session["UserRole"] = role;
-                Session["UserEmail"] = email;
-                Session["UserName"] = email.Contains("@") ? email.Split('@')[0] : "User";
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                cmd.Parameters.AddWithValue("@Pass", txtPassword.Text.Trim());
+                cmd.Parameters.AddWithValue("@Role", rblRole.SelectedValue);
 
-                if (role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                con.Open();
+                int count = (int)cmd.ExecuteScalar();
+
+                if (count > 0)
                 {
-                    Response.Redirect("~/Admin/AdminDashboard.aspx");
+                    Session["UserEmail"] = txtEmail.Text.Trim();
+                    Session["UserRole"] = rblRole.SelectedValue;
+                    Response.Redirect("Home.aspx");
                 }
                 else
                 {
-                    Response.Redirect("~/Default.aspx");
+                    lblError.Text = "Invalid Email, Password, or Role selection!";
                 }
             }
         }

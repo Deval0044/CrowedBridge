@@ -1,84 +1,76 @@
-﻿<%@ Page Title="Sign In" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CrowedBridge.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CrowdBridge.Login" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="min-h-screen bg-gray-50 flex flex-col justify-between pb-8">
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Sign In - CrowdBridge</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 0;">
+    <form id="form1" runat="server">
         
-        <!-- Back Navigation -->
-        <div class="max-w-7xl mx-auto w-full px-6 py-4">
-            <a href="Default.aspx" class="text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1.5 transition">
-                ← Back to Home
-            </a>
+        <!-- Back to Home Button -->
+        <div style="padding: 20px 40px;">
+            <a href="Home.aspx" style="text-decoration: none; color: #475569; font-size: 14px; font-weight: bold;">← Back to Home</a>
         </div>
 
-        <!-- Center Login Card -->
-        <div class="max-w-md w-full mx-auto px-4 my-auto">
-            <div class="bg-white rounded-3xl border border-gray-200/80 shadow-xl p-8 sm:p-10 space-y-6">
-                
-                <div class="text-center space-y-1">
-                    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Welcome Back</h1>
-                    <p class="text-xs text-gray-500">Sign in to your CrowdBridge account.</p>
+        <!-- Login Card Container -->
+        <div style="max-width: 420px; margin: 20px auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+            
+            <h2 style="text-align: center; font-size: 26px; color: #0f172a; margin: 0 0 6px 0;">Welcome Back</h2>
+            <p style="text-align: center; font-size: 13px; color: #64748b; margin: 0 0 24px 0;">Sign in to your CrowdBridge account.</p>
+
+            <!-- Role Selector (Backer / Creator / Admin) -->
+            <div style="background-color: #f1f5f9; padding: 4px; border-radius: 8px; display: flex; margin-bottom: 24px;">
+                <asp:RadioButtonList ID="rblRole" runat="server" RepeatDirection="Horizontal" Width="100%" CssClass="role-selector" style="text-align: center; font-size: 13px;">
+                    <asp:ListItem Text="Backer" Value="Backer" Selected="True"></asp:ListItem>
+                    <asp:ListItem Text="Creator" Value="Creator"></asp:ListItem>
+                    <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+
+            <!-- Email Input -->
+            <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; font-weight: bold; color: #334155;">Email Address</label><br />
+                <asp:TextBox ID="txtEmail" runat="server" Placeholder="you@example.com" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; margin-top: 6px;"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required" ForeColor="Red" Font-Size="12px" Display="Dynamic"></asp:RequiredFieldValidator>
+            </div>
+
+            <!-- Password Input -->
+            <div style="margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label style="font-size: 13px; font-weight: bold; color: #334155;">Password</label>
+                    <a href="#" style="font-size: 12px; color: #ea580c; text-decoration: none;">Forgot password?</a>
                 </div>
+                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Placeholder="••••••••" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; margin-top: 6px;"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Password is required" ForeColor="Red" Font-Size="12px" Display="Dynamic"></asp:RequiredFieldValidator>
+            </div>
 
-                <!-- Role Selector Tabs -->
-                <div class="grid grid-cols-3 gap-1 bg-gray-100 p-1.5 rounded-2xl">
-                    <asp:Button ID="btnRoleBacker" runat="server" Text="Backer" OnClick="SelectRole_Click" CommandArgument="Backer" CausesValidation="false" UseSubmitBehavior="false" />
-                    <asp:Button ID="btnRoleCreator" runat="server" Text="Creator" OnClick="SelectRole_Click" CommandArgument="Creator" CausesValidation="false" UseSubmitBehavior="false" />
-                    <asp:Button ID="btnRoleAdmin" runat="server" Text="Admin" OnClick="SelectRole_Click" CommandArgument="Admin" CausesValidation="false" UseSubmitBehavior="false" />
-                </div>
+            <!-- Sign In Button -->
+            <asp:Button ID="btnSignIn" runat="server" Text="Sign In ➔" OnClick="btnSignIn_Click" style="width: 100%; background-color: #f97316; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer;" />
 
-                <asp:HiddenField ID="hfSelectedRole" runat="server" Value="Backer" />
+            <!-- Error Display Label -->
+            <div style="text-align: center; margin-top: 12px;">
+                <asp:Label ID="lblError" runat="server" ForeColor="Red" Font-Size="13px"></asp:Label>
+            </div>
 
-                <div class="space-y-4">
-                    <!-- Email Address -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-800 mb-1">Email Address</label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-orange-500 focus:outline-none placeholder-gray-300" placeholder="you@example.com"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please enter your email" CssClass="text-xs text-red-600 font-bold mt-1 block" Display="Dynamic"></asp:RequiredFieldValidator>
-                    </div>
+            <!-- Register Link -->
+            <p style="text-align: center; font-size: 13px; color: #64748b; margin-top: 24px; margin-bottom: 0;">
+                Don't have an account? <a href="Register.aspx" style="color: #ea580c; font-weight: bold; text-decoration: none;">Register New Account</a>
+            </p>
+        </div>
 
-                    <!-- Password -->
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="block text-xs font-bold text-gray-800">Password</label>
-                            <a href="#" class="text-xs text-orange-600 hover:underline font-medium">Forgot password?</a>
-                        </div>
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-orange-500 focus:outline-none placeholder-gray-300" placeholder="••••••••"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Please enter your password" CssClass="text-xs text-red-600 font-bold mt-1 block" Display="Dynamic"></asp:RequiredFieldValidator>
-                    </div>
-
-                    <!-- Sign In Button -->
-                    <div class="pt-2">
-                        <asp:Button ID="btnSignIn" runat="server" Text="Sign In ➔" OnClick="btnSignIn_Click" CssClass="w-full py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-xl shadow-md transition cursor-pointer" />
-                    </div>
-                </div>
-
-                <!-- Footer link to Register -->
-                <div class="text-center pt-2">
-                    <p class="text-xs text-gray-600">
-                        Don't have an account? 
-                        <a href="Register.aspx" class="text-orange-600 font-bold hover:underline">Register New Account</a>
-                    </p>
-                </div>
-
+        <!-- Minimal Footer -->
+        <div style="border-top: 1px solid #e2e8f0; margin-top: 60px; padding: 24px 40px; display: flex; justify-content: space-between; background-color: #ffffff;">
+            <div>
+                <strong style="color: #ea580c; font-size: 18px;">CrowdBridge</strong>
+                <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">© 2026 CrowdBridge India. Empowering communities together.</p>
+            </div>
+            <div style="font-size: 13px;">
+                <a href="#" style="color: #64748b; text-decoration: none; margin-left: 16px;">Support</a>
+                <a href="#" style="color: #64748b; text-decoration: none; margin-left: 16px;">About Us</a>
             </div>
         </div>
 
-        <!-- Figma Bottom Branding Footer -->
-        <div class="border-t border-gray-200 bg-white py-6 mt-12">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div>
-                    <span class="text-lg font-black text-amber-900">CrowdBridge</span>
-                    <p class="text-xs text-gray-500 mt-0.5">© 2026 CrowdBridge India. Empowering communities together.</p>
-                </div>
-                <div class="flex items-center gap-6 text-xs text-gray-600 font-medium">
-                    <a href="#" class="hover:text-gray-900">Support</a>
-                    <a href="#" class="hover:text-gray-900">About Us</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</asp:Content>
+    </form>
+</body>
+</html>
