@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\AdminDashboard.aspx" />
-    <Content Include="App_Data\.gitkeep.txt" />
+    <None Include="App_Data\.gitkeep" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
