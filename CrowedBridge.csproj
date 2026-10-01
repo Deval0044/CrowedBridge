@@ -69,10 +69,6 @@
   <ItemGroup>
     <Content Include="Admin\AdminDashboard.aspx" />
     <None Include="App_Data\.gitkeep" />
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
-    </Content>
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
