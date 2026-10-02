@@ -68,12 +68,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\AdminDashboard.aspx" />
+<<<<<<< HEAD
     <Content Include="App_Data\.gitkeep.txt" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Creator\Login.aspx" />
+=======
+    <None Include="App_Data\.gitkeep" />
+>>>>>>> 6018ab493f8e51ee53563808dc5ef0bb030b962e
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />

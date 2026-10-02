@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/App_Data/Database1.mdf
+/App_Data/Database1_log.ldf
+/App_Data/CrowdBridgeDB.mdf
+/App_Data/CrowdBridgeDB_log.ldf
