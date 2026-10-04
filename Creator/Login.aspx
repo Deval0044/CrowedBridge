@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 
 <!DOCTYPE html>
 <script runat="server">
@@ -6,7 +6,7 @@
     {
         if (!IsPostBack)
         {
-            // Initial page load logic
+            // Initial load logic
         }
     }
 
@@ -16,9 +16,17 @@
         {
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
-            string selectedRole = hfRole.Value;
 
-            // Authentication / Database check goes here
+            // Simple login check
+            if (email == "admin@example.com" && password == "123456")
+            {
+                Session["Username"] = email;
+                Response.Redirect("~/Creator/Dashboard.aspx");
+            }
+            else
+            {
+                lblError.Text = "Invalid email or password.";
+            }
         }
     }
 </script>
@@ -31,165 +39,107 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
-        body {
-            background-color: #F8F8F6;
-            color: #333333;
-            min-height: 100vh;
+        html, body {
+            height: 100%;
+        }
+
+        form {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            min-height: 100vh;
+            background-color: #F8F8F6;
         }
 
-        /* Top Navigation */
         .top-nav {
-            padding: 30px 50px;
+            padding: 20px 40px;
         }
 
         .back-link {
             color: #4A4A4A;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: bold;
         }
 
-        .back-link:hover {
-            color: #111111;
-        }
-
-        /* Main Container */
         .main-container {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            flex-grow: 1;
+            flex: 1; /* Pushes footer down */
         }
 
         .login-card {
             background: #FFFFFF;
             width: 100%;
-            max-width: 480px;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
             border: 1px solid #EFEFEF;
-            text-align: center;
         }
 
         .login-card h2 {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: bold;
             color: #111111;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            text-align: center;
         }
 
-        .login-card p.subtitle {
+        .subtitle {
             color: #666666;
-            font-size: 15px;
-            margin-bottom: 24px;
-        }
-
-        /* Role Switcher Tabs */
-        .role-switcher {
-            display: flex;
-            background-color: #F2F2EE;
-            padding: 4px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-        }
-
-        .role-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
             font-size: 14px;
-            font-weight: 600;
-            color: #555555;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .role-btn.active {
-            background: #FFFFFF;
-            color: #C85A17;
-            box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* Form Inputs */
-        .form-group {
-            text-align: left;
             margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: bold;
             color: #222222;
-            margin-bottom: 8px;
-        }
-
-        .password-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .forgot-link {
-            font-size: 12px;
-            color: #C85A17;
-            text-decoration: none;
-            font-weight: 500;
+            margin-bottom: 6px;
         }
 
         .input-control {
             width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #E0E0E0;
-            border-radius: 8px;
-            font-size: 15px;
+            padding: 10px 12px;
+            border: 1px solid #D0D0D0;
+            border-radius: 4px;
+            font-size: 14px;
             outline: none;
-            transition: border-color 0.2s;
         }
 
         .input-control:focus {
             border-color: #FA6400;
         }
 
-        /* WebForm Validator Error Text Style */
         .validator-error {
-            color: #d9534f;
+            color: #E53935;
             font-size: 12px;
             margin-top: 4px;
             display: block;
         }
 
-        /* Sign In Button */
         .btn-submit {
             width: 100%;
             background-color: #FA6400;
             color: #FFFFFF;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
             margin-top: 10px;
-            transition: background 0.2s;
         }
 
         .btn-submit:hover {
@@ -197,56 +147,33 @@
         }
 
         .register-text {
-            margin-top: 24px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 13px;
             color: #555555;
+            text-align: center;
         }
 
         .register-text a {
-            color: #C85A17;
+            color: #FA6400;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: bold;
         }
 
-        /* Footer */
         .footer {
             background: #FFFFFF;
             border-top: 1px solid #EFEFEF;
-            padding: 30px 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            padding: 20px 40px;
         }
 
         .footer-brand {
-            font-size: 22px;
-            font-weight: 700;
-            color: #9C4100;
-            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #FA6400;
         }
 
         .footer-copy {
-            font-size: 14px;
-            color: #666666;
-        }
-
-        .footer-links a {
-            color: #4A4A4A;
-            text-decoration: none;
-            font-size: 15px;
-            margin-left: 24px;
-        }
-
-        .footer-links a:hover {
-            color: #111111;
-        }
-
-        .lbl-error {
-            color: #d9534f;
             font-size: 13px;
-            display: block;
-            margin-bottom: 15px;
-            text-align: left;
+            color: #666666;
         }
     </style>
 </head>
@@ -264,19 +191,12 @@
         <div class="main-container">
             <div class="login-card">
                 <h2>Welcome Back</h2>
-                <p class="subtitle">Sign in to your CrowdBridge account.</p>
+                <p class="subtitle">Sign in to your CrowdBridge account</p>
 
-                <!-- Hidden field to store selected role -->
-                <asp:HiddenField ID="hfRole" runat="server" Value="Creator" />
+                <!-- Server Error Label -->
+                <asp:Label ID="lblError" runat="server" CssClass="validator-error" Style="margin-bottom: 12px; text-align: center;"></asp:Label>
 
-                <!-- Role Selector Tabs -->
-                <div class="role-switcher">
-                    <button type="button" class="role-btn" onclick="selectRole('Backer', this)">Backer</button>
-                    <button type="button" class="role-btn active" onclick="selectRole('Creator', this)">Creator</button>
-                    <button type="button" class="role-btn" onclick="selectRole('Admin', this)">Admin</button>
-                </div>
-
-                <!-- Input Fields with WebForm Validators -->
+                <!-- Email Field -->
                 <div class="form-group">
                     <label for="txtEmail">Email Address</label>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="input-control" Placeholder="you@example.com"></asp:TextBox>
@@ -297,11 +217,9 @@
                     </asp:RegularExpressionValidator>
                 </div>
 
+                <!-- Password Field -->
                 <div class="form-group">
-                    <div class="password-header">
-                        <label for="txtPassword">Password</label>
-                        <asp:HyperLink ID="hlForgotPassword" runat="server" NavigateUrl="~/ForgotPassword.aspx" CssClass="forgot-link">Forgot password?</asp:HyperLink>
-                    </div>
+                    <label for="txtPassword">Password</label>
                     <asp:TextBox ID="txtPassword" runat="server" CssClass="input-control" TextMode="Password" Placeholder="••••••••"></asp:TextBox>
                     
                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server" 
@@ -312,11 +230,8 @@
                     </asp:RequiredFieldValidator>
                 </div>
 
-                <!-- Backend Dynamic Error Label -->
-                <asp:Label ID="lblError" runat="server" CssClass="lbl-error" Visible="false"></asp:Label>
-
                 <!-- Action Button -->
-                <asp:Button ID="btnSignIn" runat="server" Text="Sign In &#10141;" CssClass="btn-submit" OnClick="btnSignIn_Click" CausesValidation="true" />
+                <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn-submit" OnClick="btnSignIn_Click" />
 
                 <div class="register-text">
                     Don’t have an account? 
@@ -327,27 +242,10 @@
 
         <!-- Footer -->
         <div class="footer">
-            <div>
-                <div class="footer-brand">CrowdBridge</div>
-                <div class="footer-copy">&copy; 2024 CrowdBridge India. Empowering communities together.</div>
-            </div>
-            <div class="footer-links">
-                <asp:HyperLink ID="hlSupport" runat="server" NavigateUrl="~/Support.aspx">Support</asp:HyperLink>
-                <asp:HyperLink ID="hlAbout" runat="server" NavigateUrl="~/About.aspx">About Us</asp:HyperLink>
-            </div>
+            <div class="footer-brand">CrowdBridge</div>
+            <div class="footer-copy">&copy; 2026 CrowdBridge India.</div>
         </div>
 
     </form>
-
-    <script type="text/javascript">
-        function selectRole(roleName, element) {
-            document.getElementById('<%= hfRole.ClientID %>').value = roleName;
-            var buttons = document.querySelectorAll('.role-btn');
-            buttons.forEach(function (btn) {
-                btn.classList.remove('active');
-            });
-            element.classList.add('active');
-        }
-    </script>
 </body>
 </html>

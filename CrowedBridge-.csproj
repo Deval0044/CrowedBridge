@@ -67,24 +67,119 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AddNewMember.aspx" />
     <Content Include="Admin\AdminDashboard.aspx" />
+    <Content Include="Admin\AdminDashbord.aspx" />
+    <Content Include="Admin\KYCVerification.aspx" />
+    <Content Include="Admin\ProjectModeration.aspx" />
+    <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\UserDirectory.aspx" />
     <Content Include="App_Data\.gitkeep.txt" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="Backers\AuthenticatedHomepage.aspx" />
+    <Content Include="Backers\PledgeModal.aspx" />
+    <Content Include="Backers\PledgeSuccess.aspx" />
+    <Content Include="Backers\SmartIrrigationSensors.aspx" />
+    <Content Include="Creator\BuildReward.aspx" />
     <Content Include="Creator\Dashboard.aspx" />
     <Content Include="Creator\Login.aspx" />
     <Content Include="Creator\NewCampaning.aspx" />
+    <Content Include="Creator\Payout.aspx" />
+    <Content Include="Creator\PledgesReceived.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Home\Default.aspx" />
+    <Content Include="Home\Login.aspx" />
+    <Content Include="Home\ProjectDetails.aspx" />
+    <Content Include="Home\ProjectSearch.aspx" />
+    <Content Include="Home\UserRegister.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddNewMember.aspx.cs">
+      <DependentUpon>AddNewMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddNewMember.aspx.designer.cs">
+      <DependentUpon>AddNewMember.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminDashbord.aspx.cs">
+      <DependentUpon>AdminDashbord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminDashbord.aspx.designer.cs">
+      <DependentUpon>AdminDashbord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\KYCVerification.aspx.cs">
+      <DependentUpon>KYCVerification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\KYCVerification.aspx.designer.cs">
+      <DependentUpon>KYCVerification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProjectModeration.aspx.cs">
+      <DependentUpon>ProjectModeration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProjectModeration.aspx.designer.cs">
+      <DependentUpon>ProjectModeration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserDirectory.aspx.cs">
+      <DependentUpon>UserDirectory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserDirectory.aspx.designer.cs">
+      <DependentUpon>UserDirectory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Backers\AuthenticatedHomepage.aspx.cs">
+      <DependentUpon>AuthenticatedHomepage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\AuthenticatedHomepage.aspx.designer.cs">
+      <DependentUpon>AuthenticatedHomepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Backers\PledgeModal.aspx.cs">
+      <DependentUpon>PledgeModal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\PledgeModal.aspx.designer.cs">
+      <DependentUpon>PledgeModal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Backers\PledgeSuccess.aspx.cs">
+      <DependentUpon>PledgeSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\PledgeSuccess.aspx.designer.cs">
+      <DependentUpon>PledgeSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Backers\SmartIrrigationSensors.aspx.cs">
+      <DependentUpon>SmartIrrigationSensors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\SmartIrrigationSensors.aspx.designer.cs">
+      <DependentUpon>SmartIrrigationSensors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Creator\BuildReward.aspx.cs">
+      <DependentUpon>BuildReward.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Creator\BuildReward.aspx.designer.cs">
+      <DependentUpon>BuildReward.aspx</DependentUpon>
     </Compile>
     <Compile Include="Creator\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -107,9 +202,58 @@
     <Compile Include="Creator\NewCampaning.aspx.designer.cs">
       <DependentUpon>NewCampaning.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Creator\Payout.aspx.cs">
+      <DependentUpon>Payout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Creator\Payout.aspx.designer.cs">
+      <DependentUpon>Payout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Creator\PledgesReceived.aspx.cs">
+      <DependentUpon>PledgesReceived.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Creator\PledgesReceived.aspx.designer.cs">
+      <DependentUpon>PledgesReceived.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\ProjectDetails.aspx.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\ProjectDetails.aspx.designer.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\ProjectSearch.aspx.cs">
+      <DependentUpon>ProjectSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\ProjectSearch.aspx.designer.cs">
+      <DependentUpon>ProjectSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\UserRegister.aspx.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\UserRegister.aspx.designer.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -135,9 +279,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Neww\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

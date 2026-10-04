@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="CrowedBridge.Creator.Dashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 
 <!DOCTYPE html>
 <script runat="server">
@@ -12,7 +12,7 @@
 
     protected void btnStartCampaign_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Creator/CreateCampaign.aspx");
+        Response.Redirect("~/Creator/NewCampaning.aspx");
     }
 
     protected void btnSignOut_Click(object sender, EventArgs e)
@@ -442,7 +442,7 @@
                 </ul>
             </div>
 
-            <asp:Button ID="btnSignOut" runat="server" Text="&#x21AA;  Sign Out" CssClass="sign-out-btn" OnClick="btnSignOut_Click" CausesValidation="false" />
+            <asp:Button ID="btnSignOut" runat="server" Text="&#x21AA;&nbsp; Sign Out" CssClass="sign-out-btn" OnClick="btnSignOut_Click" CausesValidation="false" />
         </div>
 
         <!-- Main Dashboard Content -->
