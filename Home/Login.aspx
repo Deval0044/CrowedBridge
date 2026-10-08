@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CrowedBridge.UserLogin" %>
-<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CrowedBridge.Home.Login" %>
 
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Welcome Back - CrowdBridge</title>
@@ -226,6 +226,10 @@
                         <button type="button" class="role-tab" onclick="selectRole('Admin', this)">Admin</button>
                     </div>
 
+                    <div style="margin-bottom: 12px;">
+                        <asp:Label ID="lblError" runat="server" ForeColor="Red" Font-Size="13px"></asp:Label>
+                    </div>
+
                     <div class="form-group">
                         <label class="field-label">Email Address</label>
                         <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" CssClass="text-input" Placeholder="you@example.com"></asp:TextBox>
@@ -239,10 +243,10 @@
                         <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="text-input" Placeholder="••••••••"></asp:TextBox>
                     </div>
 
-                    <asp:Button ID="btnSignIn" runat="server" Text="Sign In &#10132;" CssClass="btn-signin" OnClick="btnSignIn_Click" />
+                    <asp:Button ID="btnSignIn" runat="server" Text="Sign In &rarr;" CssClass="btn-signin" OnClick="btnSignIn_Click" />
 
                     <p class="register-notice">
-                        Don’t have an account? <a href="UserRegister.aspx" class="register-link">Register New Account</a>
+                        Don't have an account? <a href="UserRegister.aspx" class="register-link">Register New Account</a>
                     </p>
                 </div>
             </div>

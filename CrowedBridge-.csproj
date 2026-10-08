@@ -75,9 +75,9 @@
     <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\UserDirectory.aspx" />
     <Content Include="App_Data\.gitkeep.txt" />
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
+    <Content Include="App_Data\CrowdBridgeDB.mdf" />
+    <Content Include="App_Data\CrowdBridgeDB_log.ldf">
+      <DependentUpon>CrowdBridgeDB.mdf</DependentUpon>
     </Content>
     <Content Include="Backers\AuthenticatedHomepage.aspx" />
     <Content Include="Backers\PledgeModal.aspx" />
