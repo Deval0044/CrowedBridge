@@ -1,0 +1,66 @@
+﻿-- Create All Tables
+CREATE TABLE Roles (
+    RoleID INT IDENTITY(1,1) PRIMARY KEY,
+    RoleName NVARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Categories (
+    CategoryID INT IDENTITY(1,1) PRIMARY KEY,
+    CategoryName NVARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Users (
+    UserID INT IDENTITY(1,1) PRIMARY KEY,
+    FullName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Mobile NVARCHAR(15) NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    RoleID INT FOREIGN KEY REFERENCES Roles(RoleID),
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Projects (
+    ProjectID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    CategoryID INT FOREIGN KEY REFERENCES Categories(CategoryID),
+    Title NVARCHAR(150) NOT NULL,
+    Description NVARCHAR(MAX) NULL,
+    Location NVARCHAR(100) NULL,
+    TargetAmount DECIMAL(18,2) NOT NULL,
+    RaisedAmount DECIMAL(18,2) DEFAULT 0.00,
+    Status NVARCHAR(20) DEFAULT 'Active',
+    ImageUrl NVARCHAR(500) NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Contributions (
+    ContributionID INT IDENTITY(1,1) PRIMARY KEY,
+    ProjectID INT FOREIGN KEY REFERENCES Projects(ProjectID),
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    Amount DECIMAL(18,2) NOT NULL,
+    PaymentStatus NVARCHAR(20) DEFAULT 'Success',
+    ContributionDate DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE ProjectUpdates (
+    UpdateID INT IDENTITY(1,1) PRIMARY KEY,
+    ProjectID INT FOREIGN KEY REFERENCES Projects(ProjectID),
+    UpdateTitle NVARCHAR(150) NOT NULL,
+    UpdateMessage NVARCHAR(MAX) NOT NULL,
+    PostedDate DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Comments (
+    CommentID INT IDENTITY(1,1) PRIMARY KEY,
+    ProjectID INT FOREIGN KEY REFERENCES Projects(ProjectID),
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    CommentText NVARCHAR(MAX) NOT NULL,
+    CommentDate DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE ActivityLogs (
+    LogID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    Action NVARCHAR(100) NOT NULL,
+    LogDate DATETIME DEFAULT GETDATE()
+);
