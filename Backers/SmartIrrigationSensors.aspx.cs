@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CrowedBridge.Backers
 {
-    public partial class SmartIrrigationSensors : System.Web.UI.Page
+    public partial class SmartIrrigationSensors : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btnSelectTier2_Click(object sender, EventArgs e)
+        {
+            // Redirects directly to PledgeModal.aspx
+            Response.Redirect("~/Backers/PledgeModal.aspx?amount=2,500&tier=Early Bird Kit");
         }
     }
 }

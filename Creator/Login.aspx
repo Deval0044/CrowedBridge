@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 
 <!DOCTYPE html>
+
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,29 +18,25 @@
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            // Simple login check
-            if (email == "admin@example.com" && password == "123456")
-            {
-                Session["Username"] = email;
-                Response.Redirect("~/Creator/Dashboard.aspx");
-            }
-            else
-            {
-                lblError.Text = "Invalid email or password.";
-            }
+            // Save session details
+            Session["Username"] = email;
+            Session["UserRole"] = "Creator";
+
+            // Redirects to your Default.aspx inside the Home folder (or Creator dashboard if created)
+            Response.Redirect("~/Home/Default.aspx");
         }
     }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Login - CrowdBridge</title>
+    <title>Creator Login - CrowdBridge</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         html, body {
@@ -54,14 +51,21 @@
         }
 
         .top-nav {
-            padding: 20px 40px;
+            padding: 24px 48px;
         }
 
         .back-link {
-            color: #4A4A4A;
             text-decoration: none;
+            color: #444444;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            color: #111111;
         }
 
         .main-container {
@@ -69,16 +73,16 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            flex: 1; /* Pushes footer down */
+            flex: 1;
         }
 
         .login-card {
             background: #FFFFFF;
             width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 440px;
+            padding: 36px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03);
             border: 1px solid #EFEFEF;
         }
 
@@ -93,27 +97,27 @@
         .subtitle {
             color: #666666;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             text-align: center;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 600;
             color: #222222;
             margin-bottom: 6px;
         }
 
         .input-control {
             width: 100%;
-            padding: 10px 12px;
+            padding: 11px 14px;
             border: 1px solid #D0D0D0;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 14px;
             outline: none;
         }
@@ -134,8 +138,8 @@
             background-color: #FA6400;
             color: #FFFFFF;
             border: none;
-            padding: 12px;
-            border-radius: 4px;
+            padding: 13px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
@@ -162,7 +166,10 @@
         .footer {
             background: #FFFFFF;
             border-top: 1px solid #EFEFEF;
-            padding: 20px 40px;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-brand {
@@ -182,7 +189,7 @@
         
         <!-- Top Nav -->
         <div class="top-nav">
-            <asp:HyperLink ID="hlBackHome" runat="server" NavigateUrl="~/Home.aspx" CssClass="back-link">
+            <asp:HyperLink ID="hlBackHome" runat="server" NavigateUrl="~/Home/Default.aspx" CssClass="back-link">
                 &larr; Back to Home
             </asp:HyperLink>
         </div>
@@ -190,8 +197,8 @@
         <!-- Form Card Container -->
         <div class="main-container">
             <div class="login-card">
-                <h2>Welcome Back</h2>
-                <p class="subtitle">Sign in to your CrowdBridge account</p>
+                <h2>Creator Sign In</h2>
+                <p class="subtitle">Sign in to manage your CrowdBridge projects</p>
 
                 <!-- Server Error Label -->
                 <asp:Label ID="lblError" runat="server" CssClass="validator-error" Style="margin-bottom: 12px; text-align: center;"></asp:Label>
@@ -199,7 +206,7 @@
                 <!-- Email Field -->
                 <div class="form-group">
                     <label for="txtEmail">Email Address</label>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="input-control" Placeholder="you@example.com"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="input-control" Placeholder="creator@example.com"></asp:TextBox>
                     
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server" 
                         ControlToValidate="txtEmail" 
@@ -231,19 +238,21 @@
                 </div>
 
                 <!-- Action Button -->
-                <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn-submit" OnClick="btnSignIn_Click" />
+                <asp:Button ID="btnSignIn" runat="server" Text="Sign In &rarr;" CssClass="btn-submit" OnClick="btnSignIn_Click" />
 
                 <div class="register-text">
-                    Don’t have an account? 
-                    <asp:HyperLink ID="hlRegister" runat="server" NavigateUrl="~/Register.aspx">Register New Account</asp:HyperLink>
+                    Don’t have a Creator account? 
+                    <asp:HyperLink ID="hlRegister" runat="server" NavigateUrl="~/Home/UserRegister.aspx">Register Here</asp:HyperLink>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <div class="footer-brand">CrowdBridge</div>
-            <div class="footer-copy">&copy; 2026 CrowdBridge India.</div>
+            <div>
+                <div class="footer-brand">CrowdBridge</div>
+                <div class="footer-copy">&copy; 2026 CrowdBridge India. Empowering creators together.</div>
+            </div>
         </div>
 
     </form>

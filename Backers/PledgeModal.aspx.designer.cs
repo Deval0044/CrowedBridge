@@ -24,6 +24,24 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// lblTierTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTierTitle;
+
+        /// <summary>
+        /// lblTierAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTierAmount;
+
+        /// <summary>
         /// txtPledgeAmount control.
         /// </summary>
         /// <remarks>
@@ -31,6 +49,24 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPledgeAmount;
+
+        /// <summary>
+        /// lblMinPledge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMinPledge;
+
+        /// <summary>
+        /// hfPaymentMethod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfPaymentMethod;
 
         /// <summary>
         /// txtNote control.

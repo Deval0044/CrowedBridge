@@ -549,17 +549,23 @@
                         <button type="button" class="btn-select-tier">Select Tier</button>
                     </div>
 
+                 
+
                     <!-- Tier 2 -->
-                    <div class="tier-card">
-                        <span class="badge-popular">Popular</span>
-                        <div class="tier-card-header">
-                            <span class="tier-price">&#x20B9;2,500</span>
-                            <span class="tier-badge">Tier 2</span>
-                        </div>
-                        <div class="tier-title">Early Bird Kit</div>
-                        <p class="tier-desc">1 Sensor Node + Mobile App Access. Perfect for a small garden or test plot.</p>
-                        <button type="button" class="btn-select-tier">Select Tier</button>
-                    </div>
+<div class="tier-card">
+    <span class="badge-popular">Popular</span>
+    <div class="tier-card-header">
+        <span class="tier-price">&#x20B9;2,500</span>
+        <span class="tier-badge">Tier 2</span>
+    </div>
+    <div class="tier-title">Early Bird Kit</div>
+    <p class="tier-desc">1 Sensor Node + Mobile App Access. Perfect for a small garden or test plot.</p>
+    
+    <!-- Server control configured to trigger redirection -->
+    <asp:Button ID="btnSelectTier2" runat="server" Text="Select Tier" CssClass="btn-select-tier" OnClick="btnSelectTier2_Click" />
+</div>
+
+
 
                     <!-- Tier 3 -->
                     <div class="tier-card">
