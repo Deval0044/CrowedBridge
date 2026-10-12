@@ -1,10 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PledgeModal.aspx.cs" Inherits="CrowedBridge.Backers.PledgeModal" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Complete Your Pledge</title>
+    <title>Complete Your Pledge - CrowdBridge</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,378 +13,408 @@
         }
 
         body {
-            background-color: #9E9E9E;
+            background-color: #8C929D;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
         }
 
-        /* Modal Container */
         .modal-card {
             background: #FFFFFF;
             width: 100%;
             max-width: 480px;
             border-radius: 12px;
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
         }
 
-        /* Header */
+        /* Modal Header */
         .modal-header {
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #EFEFEF;
         }
 
         .modal-title {
             font-size: 18px;
             font-weight: 700;
-            color: #111111;
+            color: #111827;
         }
 
         .close-btn {
-            background: transparent;
-            border: none;
-            font-size: 20px;
-            color: #888888;
-            cursor: pointer;
+            font-size: 18px;
+            color: #4B5563;
+            text-decoration: none;
             line-height: 1;
+            font-weight: 600;
         }
 
-        /* Body */
         .modal-body {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            padding: 0 24px 24px 24px;
         }
 
-        /* Tier Banner */
+        /* Selected Tier Header Box */
         .tier-summary-box {
-            background: #F9F8F6;
+            background: #F8F8F8;
             border-radius: 8px;
-            padding: 16px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
 
-        .tier-info-left {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
         .tier-label {
             font-size: 10px;
             font-weight: 700;
-            color: #A34E00;
-            text-transform: uppercase;
+            color: #E85D04;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
         }
 
-        .tier-name {
-            font-size: 14px;
+        .tier-title {
+            font-size: 13px;
             font-weight: 700;
-            color: #111111;
+            color: #111827;
+            margin-bottom: 6px;
         }
 
-        .tier-desc {
+        .tier-sub {
             font-size: 11px;
-            color: #666666;
-            line-height: 1.4;
-            margin-top: 4px;
-            max-width: 300px;
+            color: #6B7280;
+            line-height: 1.45;
+            max-width: 290px;
         }
 
-        .tier-price {
-            font-size: 18px;
+        .tier-amount {
+            font-size: 20px;
             font-weight: 800;
-            color: #111111;
+            color: #111827;
         }
 
-        /* Input Group */
+        /* Form Controls */
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            margin-bottom: 20px;
         }
 
         .field-label {
             font-size: 12px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .currency-symbol {
-            position: absolute;
-            left: 14px;
-            color: #666666;
-            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+            display: block;
         }
 
         .text-input {
             width: 100%;
-            padding: 10px 14px 10px 30px;
-            border: 1px solid #D1D5DB;
+            padding: 12px 14px;
+            border: 1px solid #E5E7EB;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
-            color: #111111;
-        }
-
-        .text-input:focus {
-            border-color: #FA6400;
+            color: #111827;
+            background-color: #FFFFFF;
         }
 
         .field-hint {
             font-size: 11px;
-            color: #777777;
+            color: #6B7280;
+            margin-top: 8px;
         }
 
-        /* Payment Methods */
-        .payment-options {
+        /* Payment Option Cards */
+        .payment-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .payment-option {
+        .payment-card {
             border: 1px solid #E5E7EB;
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
+            transition: all 0.15s ease;
+            background-color: #FAFAFA;
         }
 
-        /* Active / Selected Highlight Styling */
-        .payment-option.selected {
-            border-color: #FA6400;
-            background-color: #FFFBF7;
+        .payment-card.selected {
+            border: 1px solid #E85D04;
+            background-color: #F8F8F8;
         }
 
-        .option-left {
+        .payment-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .radio-btn {
-            accent-color: #FA6400;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
+        .radio-outer {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #FFFFFF;
         }
 
-        .option-title {
+        .payment-card.selected .radio-outer {
+            border-color: #E85D04;
+        }
+
+        .radio-inner {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #E85D04;
+            display: none;
+        }
+
+        .payment-card.selected .radio-inner {
+            display: block;
+        }
+
+        .payment-info strong {
+            display: block;
             font-size: 13px;
+            color: #111827;
             font-weight: 700;
-            color: #111111;
+            margin-bottom: 2px;
         }
 
-        .option-sub {
+        .payment-info span {
             font-size: 11px;
-            color: #777777;
-            margin-top: 2px;
+            color: #6B7280;
         }
 
-        .option-icon {
-            color: #555555;
-            font-size: 16px;
+        .payment-icon-right {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
         }
 
-        /* Textarea */
         .textarea-input {
             width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #D1D5DB;
+            padding: 12px 14px;
+            border: 1px solid #E5E7EB;
             border-radius: 8px;
             font-size: 13px;
             outline: none;
-            resize: vertical;
-            min-height: 70px;
-            color: #111111;
+            color: #111827;
+            resize: none;
+            height: 72px;
         }
 
-        .textarea-input:focus {
-            border-color: #FA6400;
-        }
-
-        /* Footer */
+        /* Modal Footer matching image */
         .modal-footer {
-            padding: 16px 24px 20px;
+            padding: 16px 24px;
+            background-color: #F8F8F8;
+            border-top: 1px solid #EFEFEF;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #EFEFEF;
         }
 
-        .security-note {
+        .secure-lock-wrap {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            color: #374151;
+        }
+
+        .lock-icon-svg {
+            width: 16px;
+            height: 16px;
+            stroke: #374151;
+        }
+
+        .secure-text {
             font-size: 11px;
-            color: #666666;
+            color: #4B5563;
             line-height: 1.2;
+            font-weight: 500;
         }
 
         .footer-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: center;
         }
 
         .btn-cancel {
             background: #FFFFFF;
-            border: 1px solid #D1D5DB;
-            padding: 8px 16px;
+            border: 1px solid #E5E7EB;
+            padding: 10px 20px;
             border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
-            color: #333333;
+            color: #374151;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .btn-submit {
-            background: #FA6400;
+        .btn-confirm {
+            background-color: #E85D04;
+            color: #FFFFFF;
             border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
+            padding: 12px 22px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 700;
-            color: #FFFFFF;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-confirm:hover {
+            background-color: #d05202;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="modal-card">
-            <!-- Modal Header -->
+            
+            <!-- Header -->
             <div class="modal-header">
                 <h2 class="modal-title">Complete Your Pledge</h2>
-                <button type="button" class="close-btn">&times;</button>
+                <a href="SmartIrrigationSensors.aspx" class="close-btn">&#x2715;</a>
             </div>
 
-            <!-- Modal Body -->
+            <!-- Body -->
             <div class="modal-body">
+                
                 <!-- Selected Tier Summary -->
                 <div class="tier-summary-box">
-                    <div class="tier-info-left">
-                        <span class="tier-label">Selected Tier</span>
-                        <span class="tier-name">Community Champion</span>
-                        <p class="tier-desc">Includes early access to platform features, an exclusive digital badge, and our deepest gratitude for supporting local initiatives.</p>
+                    <div>
+                        <div class="tier-label">Selected Tier</div>
+                        <div class="tier-title"><asp:Label ID="lblTierTitle" runat="server" Text="Community Champion"></asp:Label></div>
+                        <div class="tier-sub">Includes early access to platform features, an exclusive digital badge, and our deepest gratitude for supporting local initiatives.</div>
                     </div>
-                    <span class="tier-price">&#x20B9;2,500</span>
+                    <div class="tier-amount">&#x20B9;<asp:Label ID="lblTierAmount" runat="server" Text="2,500"></asp:Label></div>
                 </div>
 
-                <!-- Pledge Amount Input -->
+                <!-- Pledge Amount -->
                 <div class="form-group">
                     <label class="field-label">Pledge Amount (&#x20B9;)</label>
-                    <div class="input-wrapper">
-                        <span class="currency-symbol">&#x20B9;</span>
-                        <asp:TextBox ID="txtPledgeAmount" runat="server" CssClass="text-input" Text="2500"></asp:TextBox>
-                    </div>
-                    <span class="field-hint">Minimum pledge for this tier is &#x20B9;2,500.</span>
+                    <asp:TextBox ID="txtPledgeAmount" runat="server" CssClass="text-input" Text="2500"></asp:TextBox>
+                    <div class="field-hint">Minimum pledge for this tier is &#x20B9;<asp:Label ID="lblMinPledge" runat="server" Text="2,500"></asp:Label>.</div>
                 </div>
 
-                <!-- Payment Method Options -->
+                <!-- Payment Method Selection Cards -->
                 <div class="form-group">
                     <label class="field-label">Payment Method</label>
-                    <div class="payment-options">
-                        
+                    <asp:HiddenField ID="hfPaymentMethod" runat="server" Value="UPI" ClientIDMode="Static" />
+
+                    <div class="payment-group">
                         <!-- UPI -->
-                        <div class="payment-option selected" onclick="selectPaymentMethod(this, 'payUPI')">
-                            <div class="option-left">
-                                <input type="radio" id="payUPI" name="PaymentMethod" class="radio-btn" value="UPI" checked="checked" />
-                                <div>
-                                    <div class="option-title">UPI</div>
-                                    <div class="option-sub">Google Pay, PhonePe, Paytm, BHIM</div>
+                        <div class="payment-card selected" id="cardUPI" onclick="selectPayment('UPI')">
+                            <div class="payment-left">
+                                <div class="radio-outer">
+                                    <div class="radio-inner"></div>
+                                </div>
+                                <div class="payment-info">
+                                    <strong>UPI</strong>
+                                    <span>Google Pay, PhonePe, Paytm, BHIM</span>
                                 </div>
                             </div>
-                            <span class="option-icon">&#9638;</span>
+                            <div class="payment-icon-right">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            </div>
                         </div>
 
                         <!-- Net Banking -->
-                        <div class="payment-option" onclick="selectPaymentMethod(this, 'payNet')">
-                            <div class="option-left">
-                                <input type="radio" id="payNet" name="PaymentMethod" class="radio-btn" value="NetBanking" />
-                                <div>
-                                    <div class="option-title">Net Banking</div>
-                                    <div class="option-sub">All major Indian banks supported</div>
+                        <div class="payment-card" id="cardNetBanking" onclick="selectPayment('NetBanking')">
+                            <div class="payment-left">
+                                <div class="radio-outer">
+                                    <div class="radio-inner"></div>
+                                </div>
+                                <div class="payment-info">
+                                    <strong>Net Banking</strong>
+                                    <span>All major Indian banks supported</span>
                                 </div>
                             </div>
-                            <span class="option-icon">&#127963;</span>
+                            <div class="payment-icon-right">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3l9 7H3l9-7z"></path></svg>
+                            </div>
                         </div>
 
                         <!-- Credit / Debit Card -->
-                        <div class="payment-option" onclick="selectPaymentMethod(this, 'payCard')">
-                            <div class="option-left">
-                                <input type="radio" id="payCard" name="PaymentMethod" class="radio-btn" value="Card" />
-                                <div>
-                                    <div class="option-title">Credit / Debit Card</div>
-                                    <div class="option-sub">Visa, Mastercard, RuPay</div>
+                        <div class="payment-card" id="cardCard" onclick="selectPayment('Card')">
+                            <div class="payment-left">
+                                <div class="radio-outer">
+                                    <div class="radio-inner"></div>
+                                </div>
+                                <div class="payment-info">
+                                    <strong>Credit / Debit Card</strong>
+                                    <span>Visa, Mastercard, RuPay</span>
                                 </div>
                             </div>
-                            <span class="option-icon">&#128179;</span>
+                            <div class="payment-icon-right">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                            </div>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- Add Note Input -->
+                <!-- Note -->
                 <div class="form-group">
                     <label class="field-label">Add a note (Optional)</label>
                     <asp:TextBox ID="txtNote" runat="server" TextMode="MultiLine" CssClass="textarea-input" Placeholder="Cheer them on..."></asp:TextBox>
                 </div>
+
             </div>
 
-            <!-- Modal Footer -->
+            <!-- Footer Matching Image exactly -->
             <div class="modal-footer">
-                <div class="security-note">
-                    <span>&#128274;</span>
-                    <span>Secure<br />Payment</span>
+                <div class="secure-lock-wrap">
+                    <svg class="lock-icon-svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <div class="secure-text">
+                        Secure<br />Payment
+                    </div>
                 </div>
+
                 <div class="footer-actions">
-                    <button type="button" class="btn-cancel">Cancel</button>
-                    <asp:Button ID="btnConfirmPledge" runat="server" Text="Confirm &amp; Submit Pledge &rarr;" CssClass="btn-submit" />
+                    <a href="SmartIrrigationSensors.aspx" class="btn-cancel">Cancel</a>
+                    
+                    <!-- Direct guaranteed postback redirect to PledgeSuccess.aspx -->
+                    <asp:Button ID="btnConfirmPledge" runat="server" 
+                        Text="Confirm &amp; Submit Pledge &rarr;" 
+                        CssClass="btn-confirm" 
+                        PostBackUrl="PledgeSuccess.aspx" 
+                        CausesValidation="false" />
                 </div>
             </div>
+
         </div>
     </form>
 
     <script type="text/javascript">
-        function selectPaymentMethod(element, radioId) {
-            // Remove selected class from all options
-            var options = document.querySelectorAll('.payment-option');
-            options.forEach(function (opt) {
-                opt.classList.remove('selected');
-            });
+        function selectPayment(method) {
+            document.getElementById('hfPaymentMethod').value = method;
 
-            // Add selected class to the clicked box
-            element.classList.add('selected');
-
-            // Check the radio button inside
-            var radioBtn = document.getElementById(radioId);
-            if (radioBtn) {
-                radioBtn.checked = true;
-            }
+            document.getElementById('cardUPI').className = method === 'UPI' ? 'payment-card selected' : 'payment-card';
+            document.getElementById('cardNetBanking').className = method === 'NetBanking' ? 'payment-card selected' : 'payment-card';
+            document.getElementById('cardCard').className = method === 'Card' ? 'payment-card selected' : 'payment-card';
         }
     </script>
 </body>

@@ -262,6 +262,8 @@
             cursor: pointer;
             margin-top: auto;
             text-align: center;
+            text-decoration: none;
+            display: block;
         }
 
         .btn-orange {
@@ -368,7 +370,7 @@
                             <span class="goal">Goal: &#x20B9; 12.0L</span>
                         </div>
                         <div class="days-left">&#9202; 12 days left</div>
-                        <button type="button" class="btn-action btn-orange">View Details</button>
+                        <a href="ProjectDetails.aspx" class="btn-action btn-orange">View Details</a>
                     </div>
                 </div>
 
@@ -390,7 +392,7 @@
                             <span class="goal">Goal: &#x20B9; 25.0L</span>
                         </div>
                         <div class="days-left">&#9202; 5 days left</div>
-                        <button type="button" class="btn-action btn-outline">Support Now</button>
+                        <a href="ProjectDetails.aspx" class="btn-action btn-outline">Support Now</a>
                     </div>
                 </div>
 
@@ -411,7 +413,7 @@
                             <span class="goal">Goal: &#x20B9; 10.0L</span>
                         </div>
                         <div class="days-left">&#9202; 28 days left</div>
-                        <button type="button" class="btn-action btn-outline">Support Now</button>
+                        <a href="ProjectDetails.aspx" class="btn-action btn-outline">Support Now</a>
                     </div>
                 </div>
 
@@ -432,7 +434,7 @@
                             <span class="goal">Goal: &#x20B9; 50.0L</span>
                         </div>
                         <div class="days-left">&#9202; 15 days left</div>
-                        <button type="button" class="btn-action btn-outline">Support Now</button>
+                        <a href="ProjectDetails.aspx" class="btn-action btn-outline">Support Now</a>
                     </div>
                 </div>
 

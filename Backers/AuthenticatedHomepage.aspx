@@ -1,492 +1,703 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AuthenticatedHomepage.aspx.cs" Inherits="CrowedBridge.Backers.AuthenticatedHomepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AuthenticatedHomepage.aspx.cs" Inherits="CrowedBridge.Backers.AuthenticatedHomepage" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Dashboard - CrowdBridge</title>
+    <title>CrowdBridge - Home</title>
     <style>
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-        }
-        
-        body { 
-            background-color: #F8F8F6; 
-            color: #333333; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Navbar */
-        .navbar { 
-            background: #FFFFFF; 
-            padding: 12px 40px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border-bottom: 1px solid #EFEFEF; 
+        body {
+            background-color: #F8F8F6;
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .logo { 
-            font-size: 20px; 
-            font-weight: 800; 
-            color: #FA6400; 
-            text-decoration: none; 
+        /* Top Navigation Header */
+        .navbar {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #EAEAEA;
+            padding: 12px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .search-bar { 
-            background: #F1F5F9; 
-            border: none; 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            width: 220px; 
-            font-size: 13px; 
-            outline: none; 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        .nav-links { 
-            display: flex; 
-            align-items: center; 
-            gap: 20px; 
-            font-size: 14px; 
-            font-weight: 500; 
+        .brand-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #E85D04;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
-        .nav-links a { 
-            text-decoration: none; 
-            color: #555555; 
+        .search-container {
+            position: relative;
         }
 
-        .nav-links a.active { 
-            color: #FA6400; 
-            font-weight: 700; 
+        .search-input {
+            background-color: #F3F4F6;
+            border: 1px solid transparent;
+            border-radius: 20px;
+            padding: 8px 16px 8px 36px;
+            font-size: 13px;
+            width: 220px;
+            outline: none;
+            transition: all 0.2s ease;
         }
 
-        .btn-start { 
-            background: #FA6400; 
-            color: #FFFFFF !important; 
-            padding: 8px 16px; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            font-size: 13px; 
+        .search-input:focus {
+            background-color: #FFFFFF;
+            border-color: #E85D04;
         }
 
-        .user-profile { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            font-weight: 600; 
-            font-size: 14px; 
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
         }
 
-        .avatar { 
-            width: 32px; 
-            height: 32px; 
-            border-radius: 50%; 
-            object-fit: cover; 
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #4B5563;
+        }
+
+        .nav-link.active {
+            color: #111827;
+            font-weight: 700;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #F3F4F6;
+            padding: 5px 12px;
+            border-radius: 16px;
+            color: #4B5563;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-start-project {
+            background-color: #E85D04;
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .icon-badge-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: #E85D04;
+            color: #FFFFFF;
+            font-size: 9px;
+            font-weight: 700;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid #FFFFFF;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4B5563;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background-color: #F3F4F6;
+            color: #111827;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .profile-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         /* Main Container */
-        .container { 
-            max-width: 1100px; 
-            margin: 30px auto; 
-            padding: 0 20px; 
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 24px 60px 24px;
+            width: 100%;
+            flex: 1;
         }
 
-        /* Welcome Banner */
-        .welcome-card { 
-            background: #FFFFFF; 
-            border-radius: 12px; 
-            padding: 24px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border: 1px solid #EFEFEF; 
-            margin-bottom: 32px; 
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
+        /* Welcome Card Banner */
+        .welcome-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 28px 32px;
+            border: 1px solid #EFEFEF;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 36px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.015);
         }
 
-        .welcome-title { 
-            font-size: 22px; 
-            font-weight: 800; 
-            margin-bottom: 6px; 
+        .welcome-text h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
         }
 
-        .welcome-sub { 
-            font-size: 13px; 
-            color: #666666; 
+        .welcome-text p {
+            font-size: 13px;
+            color: #6B7280;
         }
 
-        .pills { 
-            display: flex; 
-            gap: 8px; 
-            flex-wrap: wrap; 
+        .pill-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 480px;
+            justify-content: flex-end;
         }
 
-        .pill { 
-            background: #F1F5F9; 
-            border: none; 
-            padding: 6px 12px; 
-            border-radius: 16px; 
-            font-size: 11px; 
-            font-weight: 600; 
-            color: #555555; 
-            cursor: pointer; 
+        .pill {
+            background: #F3F4F6;
+            color: #4B5563;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
         }
 
-        .pill.active { 
-            background: #FFE8D6; 
-            color: #D95300; 
+        .pill.active {
+            background: #FFEDD5;
+            color: #C2410C;
+            font-weight: 600;
         }
 
         /* Section Header */
-        .section-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 16px; 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
         }
 
-        .section-title { 
-            font-size: 18px; 
-            font-weight: 700; 
-            color: #111111; 
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
         }
 
-        .view-all { 
-            font-size: 13px; 
-            color: #FA6400; 
-            text-decoration: none; 
-            font-weight: 600; 
+        .view-all-link {
+            font-size: 12px;
+            font-weight: 600;
+            color: #E85D04;
+            text-decoration: none;
         }
 
-        /* Grids */
-        .grid-2 { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px; 
-            margin-bottom: 36px; 
+        /* Supported Projects Grid */
+        .supported-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
-        .grid-3 { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
-            margin-bottom: 36px; 
+        .supported-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #EFEFEF;
+            padding: 16px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
         }
 
-        /* Cards */
-        .card { 
-            background: #FFFFFF; 
-            border-radius: 12px; 
-            border: 1px solid #EFEFEF; 
-            overflow: hidden; 
-            padding: 16px; 
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
+        .supported-img {
+            width: 130px;
+            height: 95px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background-color: #E5E7EB;
         }
 
-        .card-horizontal { 
-            display: flex; 
-            gap: 16px; 
+        .supported-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 95px;
         }
 
-        .card-horizontal img { 
-            width: 120px; 
-            height: 90px; 
-            border-radius: 8px; 
-            object-fit: cover; 
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .card-content { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
+        .card-title-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
         }
 
-        .badge { 
-            font-size: 11px; 
-            font-weight: 700; 
-            padding: 3px 8px; 
-            border-radius: 10px; 
-            background: #D1FAE5; 
-            color: #059669; 
+        .badge-funded {
+            background: #ECFDF5;
+            color: #059669;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
         }
 
-        .badge-urgent { 
-            background: #FEE2E2; 
-            color: #DC2626; 
+        .badge-normal {
+            background: #F3F4F6;
+            color: #4B5563;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
         }
 
-        .progress-bg { 
-            background: #E5E7EB; 
-            height: 6px; 
-            border-radius: 3px; 
-            margin: 10px 0 6px; 
+        .card-status-text {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
         }
 
-        .progress-fill { 
-            background: #FA6400; 
-            height: 100%; 
-            border-radius: 3px; 
+        .status-urgent {
+            color: #DC2626;
+            font-weight: 600;
         }
 
-        .btn-update { 
-            display: block; 
-            width: 100%; 
-            text-align: center; 
-            padding: 8px; 
-            border: 1px solid #E2E8F0; 
-            background: #FFFFFF; 
-            border-radius: 6px; 
-            font-size: 12px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            margin-top: 10px; 
-            color: #333333; 
+        .progress-bar-bg {
+            background: #E5E7EB;
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+            margin: 8px 0;
+            overflow: hidden;
         }
 
-        /* Recommendation Vertical Cards */
-        .card-vertical { 
-            padding: 0; 
+        .progress-bar-fill {
+            background: #E85D04;
+            height: 100%;
+            border-radius: 3px;
         }
 
-        .card-vertical img { 
-            width: 100%; 
-            height: 150px; 
-            object-fit: cover; 
+        .btn-update-action {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
         }
 
-        .card-body { 
-            padding: 16px; 
+        .btn-update-action:hover {
+            background-color: #F9FAFB;
         }
 
-        .category { 
-            font-size: 10px; 
-            font-weight: 700; 
-            color: #FA6400; 
-            text-transform: uppercase; 
-            margin-bottom: 4px; 
+        /* Recommended Campaigns Grid */
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
         }
 
-        .card-vertical h4 { 
-            font-size: 15px; 
-            font-weight: 700; 
-            margin-bottom: 12px; 
+        .campaign-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #EFEFEF;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .raised-text { 
-            font-size: 11px; 
-            font-weight: 600; 
-            color: #666666; 
-            margin-top: 6px; 
+        .campaign-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background-color: #E5E7EB;
         }
 
-        /* Impact Section */
-        .impact-card { 
-            background: #FFFFFF; 
-            border-radius: 12px; 
-            border: 1px solid #EFEFEF; 
-            padding: 32px; 
-            text-align: center; 
-            margin-bottom: 40px; 
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
+        .campaign-content {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .impact-title { 
-            font-size: 20px; 
-            font-weight: 800; 
-            margin-bottom: 24px; 
+        .campaign-meta {
+            font-size: 11px;
+            font-weight: 700;
+            color: #E85D04;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
-        .impact-stats { 
-            display: flex; 
-            justify-content: space-around; 
+        .campaign-title-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 12px;
         }
 
-        .stat-num { 
-            font-size: 26px; 
-            font-weight: 800; 
-            color: #111111; 
-            margin-top: 8px; 
+        .campaign-raised {
+            font-size: 11px;
+            color: #6B7280;
+            margin-top: 6px;
+            margin-bottom: 12px;
         }
 
-        .stat-label { 
-            font-size: 11px; 
-            font-weight: 700; 
-            color: #888888; 
-            text-transform: uppercase; 
-            margin-top: 4px; 
+        .btn-view-details {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Community Impact Section */
+        .impact-section {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #EFEFEF;
+            padding: 36px 24px;
+            text-align: center;
+        }
+
+        .impact-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        .impact-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* Footer */
-        .footer { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding-top: 20px; 
-            border-top: 1px solid #EFEFEF; 
-            font-size: 12px; 
-            color: #777777; 
+        .footer {
+            background: #FFFFFF;
+            border-top: 1px solid #EAEAEA;
+            padding: 20px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #6B7280;
         }
 
-        .footer-links a { 
-            color: #555555; 
-            text-decoration: none; 
-            margin-left: 12px; 
+        .footer-brand {
+            font-weight: 700;
+            color: #111827;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: #6B7280;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- Top Navbar -->
-        <nav class="navbar">
-            <a href="AuthenticatedHomepage.aspx" class="logo">CrowdBridge</a>
-            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-bar" Placeholder="Search campaigns..."></asp:TextBox>
-            <div class="nav-links">
-                <a href="#" class="active">Explore</a>
-                <a href="#">Impact</a>
-                <a href="#">📍 Pune, Maharashtra</a>
-                <a href="#" class="btn-start">+ Start a Project</a>
-                <div class="user-profile">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Rahul V." class="avatar" />
-                    <span>Rahul V.</span>
+        <!-- Navigation Header -->
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="AuthenticatedHomepage.aspx" class="brand-logo">CrowdBridge</a>
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" class="search-input" placeholder="Search campaigns..." />
                 </div>
             </div>
-        </nav>
 
+            <div class="nav-center">
+                <a href="AuthenticatedHomepage.aspx" class="nav-link active">Explore</a>
+                <a href="#" class="nav-link">Impact</a>
+                <span class="location-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Pune, Maharashtra
+                </span>
+            </div>
+
+            <div class="nav-right">
+                <asp:Button ID="btnStartProject" runat="server" Text="+ Start a Project" CssClass="btn-start-project" OnClick="btnStartProject_Click" />
+                
+                <div class="icon-badge-wrap">
+                    <button type="button" class="icon-btn" title="Notifications">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    </button>
+                    <span class="notification-badge">3</span>
+                </div>
+
+                <button type="button" class="icon-btn" title="Saved Projects">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </button>
+                
+                <a href="UserProfile.aspx" class="user-profile">
+                    <asp:Label ID="lblProfileName" runat="server" Text="Rahul V."></asp:Label>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" class="profile-img" alt="Profile" />
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Body Content -->
         <div class="container">
+            
             <!-- Welcome Banner -->
             <div class="welcome-card">
-                <div>
-                    <h2 class="welcome-title">Welcome back, Rahul! 👋</h2>
-                    <p class="welcome-sub">You have backed 4 projects and helped raise &#x20B9;14,500 for local innovations.</p>
+                <div class="welcome-text">
+                    <h1>Welcome back, <asp:Label ID="lblUserName" runat="server"></asp:Label>! &#12807B;</h1>
+                    <p>You have backed 4 projects and helped raise &#x20B9;14,500 for local innovations.</p>
                 </div>
-                <div class="pills">
+                <div class="pill-group">
                     <button type="button" class="pill">Browse AgriTech</button>
                     <button type="button" class="pill">Recommended for You</button>
                     <button type="button" class="pill">Projects Ending Soon</button>
-                    <button type="button" class="pill active">📍 Local to Pune</button>
+                    <button type="button" class="pill active">&#128205; Local to Pune</button>
                 </div>
             </div>
 
-            <!-- Projects You Support -->
+            <!-- Supported Projects -->
             <div class="section-header">
-                <h3 class="section-title">Projects You Support</h3>
-                <a href="ProjectSearch.aspx" class="view-all">View All (4) &rarr;</a>
+                <h2 class="section-title">Projects You Support</h2>
+                <a href="UserProfile.aspx" class="view-all-link">View All (4) &rarr;</a>
             </div>
 
-            <div class="grid-2">
-                <!-- Supported Item 1 -->
-                <div class="card card-horizontal">
-                    <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=200" alt="Urban Oasis Hydroponics" />
-                    <div class="card-content">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div>
-                                <h4 style="font-size:14px;">Urban Oasis Hydroponics</h4>
-                                <div style="font-size:11px; color:#666; margin-top:2px;">Status: 15 Days Left</div>
+            <div class="supported-grid">
+                <!-- Card 1 -->
+                <div class="supported-card">
+                    <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=300" class="supported-img" alt="Urban Oasis" />
+                    <div class="supported-body">
+                        <div>
+                            <div class="card-top">
+                                <span class="card-title-text">Urban Oasis Hydroponics</span>
+                                <span class="badge-funded">125% Funded</span>
                             </div>
-                            <span class="badge">126% Funded</span>
+                            <div class="card-status-text">Status: 15 Days Left</div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 100%;"></div>
+                            </div>
                         </div>
-                        <div class="progress-bg"><div class="progress-fill" style="width:100%;"></div></div>
-                        <button type="button" class="btn-update">View Recent Update</button>
+                        <asp:Button ID="btnUpdate1" runat="server" Text="View Recent Update" CssClass="btn-update-action" OnClick="btnUpdate1_Click" />
                     </div>
                 </div>
 
-                <!-- Supported Item 2 -->
-                <div class="card card-horizontal">
-                    <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&q=80&w=200" alt="Solar Cold Storage" />
-                    <div class="card-content">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div>
-                                <h4 style="font-size:14px;">Solar Cold Storage</h4>
-                                <div style="font-size:11px; color:#666; margin-top:2px;">Status: 8 Days Left (Urgent)</div>
+                <!-- Card 2 -->
+                <div class="supported-card">
+                    <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&q=80&w=300" class="supported-img" alt="Solar Cold Storage" />
+                    <div class="supported-body">
+                        <div>
+                            <div class="card-top">
+                                <span class="card-title-text">Solar Cold Storage</span>
+                                <span class="badge-normal">85% Funded</span>
                             </div>
-                            <span class="badge badge-urgent">85% Funded</span>
+                            <div class="card-status-text status-urgent">Status: 8 Days Left (Urgent)</div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 85%;"></div>
+                            </div>
                         </div>
-                        <div class="progress-bg"><div class="progress-fill" style="width:85%;"></div></div>
-                        <button type="button" class="btn-update">View Recent Update</button>
+                        <asp:Button ID="btnUpdate2" runat="server" Text="View Recent Update" CssClass="btn-update-action" OnClick="btnUpdate2_Click" />
                     </div>
                 </div>
             </div>
 
             <!-- Recommended Campaigns -->
             <div class="section-header">
-                <h3 class="section-title">Recommended Campaigns Based on Your Interests</h3>
+                <h2 class="section-title">Recommended Campaigns Based on Your Interests</h2>
             </div>
 
-            <div class="grid-3">
-                <!-- Card 1 -->
-                <div class="card card-vertical">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=300" alt="Smart Irrigation" />
-                    <div class="card-body">
-                        <div class="category">AGRITECH &bull; NASHIK</div>
-                        <h4>Smart Irrigation Sensors</h4>
-                        <div class="progress-bg"><div class="progress-fill" style="width:90%;"></div></div>
-                        <div class="raised-text">Raised &#x20B9;4.5L of &#x20B9;5.0L</div>
-                        <button type="button" class="btn-update" style="margin-top:12px;">View Details</button>
+            <div class="recommended-grid">
+                <!-- Rec Card 1 -->
+                <div class="campaign-card">
+                    <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Sensors" />
+                    <div class="campaign-content">
+                        <div>
+                            <div class="campaign-meta">AGRITECH &bull; NASHIK</div>
+                            <div class="campaign-title-text">Smart Irrigation Sensors</div>
+                        </div>
+                        <div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 90%;"></div>
+                            </div>
+                            <div class="campaign-raised">Raised &#x20B9;4.5L of &#x20B9;5.0L</div>
+                            <asp:Button ID="btnDetails1" runat="server" Text="View Details" CssClass="btn-view-details" OnClick="btnDetails1_Click" />
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="card card-vertical">
-                    <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&q=80&w=300" alt="Eco Straws" />
-                    <div class="card-body">
-                        <div class="category">CLEANTECH &bull; KERALA</div>
-                        <h4>Eco Straws from Coconut Leaves</h4>
-                        <div class="progress-bg"><div class="progress-fill" style="width:70%;"></div></div>
-                        <div class="raised-text">Raised &#x20B9;2.2L of &#x20B9;3.0L</div>
-                        <button type="button" class="btn-update" style="margin-top:12px;">View Details</button>
+                <!-- Rec Card 2 -->
+                <div class="campaign-card">
+                    <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Straws" />
+                    <div class="campaign-content">
+                        <div>
+                            <div class="campaign-meta">CLEANTECH &bull; KERALA</div>
+                            <div class="campaign-title-text">Eco Straws from Coconut Leaves</div>
+                        </div>
+                        <div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 73%;"></div>
+                            </div>
+                            <div class="campaign-raised">Raised &#x20B9;2.2L of &#x20B9;3.0L</div>
+                            <asp:Button ID="btnDetails2" runat="server" Text="View Details" CssClass="btn-view-details" OnClick="btnDetails2_Click" />
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="card card-vertical">
-                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=300" alt="Handmade Pottery Collective" />
-                    <div class="card-body">
-                        <div class="category">ARTISANS &bull; JAIPUR</div>
-                        <h4>Handmade Pottery Collective</h4>
-                        <div class="progress-bg"><div class="progress-fill" style="width:90%;"></div></div>
-                        <div class="raised-text">Raised &#x20B9;1.8L of &#x20B9;2.0L</div>
-                        <button type="button" class="btn-update" style="margin-top:12px;">View Details</button>
+                <!-- Rec Card 3 -->
+                <div class="campaign-card">
+                    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Pottery" />
+                    <div class="campaign-content">
+                        <div>
+                            <div class="campaign-meta">ARTISANS &bull; JAIPUR</div>
+                            <div class="campaign-title-text">Handmade Pottery Collective</div>
+                        </div>
+                        <div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 90%;"></div>
+                            </div>
+                            <div class="campaign-raised">Raised &#x20B9;1.8L of &#x20B9;2.0L</div>
+                            <asp:Button ID="btnDetails3" runat="server" Text="View Details" CssClass="btn-view-details" OnClick="btnDetails3_Click" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Impact Section -->
-            <div class="impact-card">
-                <h3 class="impact-title">Your Collective Community Impact in 2026</h3>
-                <div class="impact-stats">
+            <!-- Collective Impact Banner -->
+            <div class="impact-section">
+                <h2 class="impact-title">Your Collective Community Impact in 2026</h2>
+                <div class="impact-stats-grid">
                     <div>
-                        <div style="font-size:20px;">👥</div>
-                        <div class="stat-num">12,400+</div>
+                        <div class="stat-value">12,400+</div>
                         <div class="stat-label">Total Backers</div>
                     </div>
                     <div>
-                        <div style="font-size:20px;">💳</div>
-                        <div class="stat-num">&#x20B9;4.8 Cr</div>
+                        <div class="stat-value">&#x20B9;4.8 Cr</div>
                         <div class="stat-label">Funds Raised</div>
                     </div>
                     <div>
-                        <div style="font-size:20px;">💼</div>
-                        <div class="stat-num">185</div>
+                        <div class="stat-value">185</div>
                         <div class="stat-label">Local Jobs Created</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="footer">
-                <div><strong>CrowdBridge</strong><br />&copy; 2024 CrowdBridge. Built for impact.</div>
-                <div class="footer-links">
-                    <a href="#">Help Center</a>
-                    <a href="#">Creator Knowledge Base</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Sign Out</a>
-                </div>
-            </footer>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>
+                <span class="footer-brand">CrowdBridge</span> &nbsp;&bull;&nbsp; &copy; 2026 CrowdBridge. Built for impact.
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Help Center</a>
+                <a href="#" class="footer-link">Creator Knowledge Base</a>
+                <a href="#" class="footer-link">Contact</a>
+                <asp:LinkButton ID="btnSignOut" runat="server" CssClass="footer-link" OnClick="btnSignOut_Click">Sign Out</asp:LinkButton>
+            </div>
+        </footer>
     </form>
 </body>
 </html>

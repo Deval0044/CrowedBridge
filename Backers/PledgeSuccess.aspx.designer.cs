@@ -24,6 +24,15 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// btnBackDashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnBackDashboard;
+
+        /// <summary>
         /// lblTransactionID control.
         /// </summary>
         /// <remarks>
@@ -42,12 +51,12 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Label lblDateTime;
 
         /// <summary>
-        /// lblAmountPaid control.
+        /// lblAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAmountPaid;
+        protected global::System.Web.UI.WebControls.Label lblAmount;
     }
 }

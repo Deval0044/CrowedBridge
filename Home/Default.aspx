@@ -388,7 +388,9 @@
             <div class="nav-left">
                 <a href="#" class="brand-logo">CrowdBridge</a>
                 <ul class="nav-links">
-                    <li><a href="#">Explore Projects</a></li>
+<!-- AFTER -->
+<li><a href="ProjectSearch.aspx">Explore Projects</a></li>                
+
                 </ul>
             </div>
             <div class="nav-right">
@@ -408,7 +410,9 @@
                     <p class="hero-desc">Empowering local communities by connecting visionary projects with global supporters. Join the movement to create sustainable impact across India.</p>
                     <div class="hero-buttons">
                         <asp:Button ID="btnStartFunding" runat="server" Text="Start Funding" CssClass="btn-hero-primary" />
-                        <asp:Button ID="btnLearnMore" runat="server" Text="Learn More" CssClass="btn-hero-secondary" />
+
+                        <asp:Button ID="btnLearnMore" runat="server" Text="Learn More" CssClass="btn-hero-secondary" PostBackUrl="~/Home/LearnMore.aspx" />
+                       
                     </div>
                 </div>
                 <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800" alt="Grassroots Innovation" class="hero-illustration" />
