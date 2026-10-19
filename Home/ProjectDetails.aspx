@@ -1,464 +1,228 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ProjectDetails.aspx.cs" Inherits="CrowedBridge.Home.ProjectDetails" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Urban Oasis Hydroponics - CrowdBridge</title>
+    <title>Project Details - CrowdBridge</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #F8F8F6; color: #333333; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Top Navigation Navbar */
+        .navbar { background: #FFFFFF; border-bottom: 1px solid #EFEFEF; padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; z-index: 20; position: relative; }
+        .nav-left { display: flex; align-items: center; gap: 32px; }
+        .brand-logo { font-size: 22px; font-weight: 800; color: #FA6400; text-decoration: none; }
+        .nav-link { color: #555555; text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        .nav-link:hover { color: #FA6400; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .btn-signin-nav { background: #FA6400; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 8px; }
 
-        body {
-            background-color: #F8F8F6;
-            color: #333333;
-            padding: 32px 48px;
-        }
+        .container { max-width: 1140px; margin: 0 auto; padding: 32px 24px; width: 100%; flex-grow: 1; }
+        
+        /* Back Navigation Link */
+        .back-btn { background: transparent; border: none; color: #555555; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+        .back-btn:hover { color: #FA6400; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Header Title & Creator Meta */
+        .project-title { font-size: 36px; font-weight: 800; color: #111111; letter-spacing: -0.5px; margin-bottom: 12px; }
+        
+        .creator-meta-row { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+        .author-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+        .author-name { font-size: 14px; font-weight: 700; color: #111111; display: flex; align-items: center; gap: 4px; }
+        .verified-check { color: #10B981; font-size: 14px; }
+        .location-badge { background: #EFEFEF; color: #555555; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px; }
 
-        /* Top Back Navigation */
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #A34E00;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            margin-bottom: 24px;
-        }
+        /* Main Layout Grid */
+        .main-layout { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+        
+        /* Left Column Media Container */
+        .banner-container { position: relative; border-radius: 16px; overflow: hidden; height: 380px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+        .banner-img { width: 100%; height: 100%; object-fit: cover; }
+        .funded-badge { position: absolute; top: 16px; left: 16px; background-color: #10B981; color: #FFFFFF; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .urgent-badge { position: absolute; top: 16px; left: 16px; background-color: #FA6400; color: #FFFFFF; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; }
 
-        /* Page Header */
-        .project-header {
-            margin-bottom: 24px;
-        }
+        /* Tab Navigation Bar */
+        .content-tabs { display: flex; gap: 28px; border-bottom: 1px solid #E5E7EB; margin-top: 32px; margin-bottom: 24px; }
+        .tab-item { font-size: 14px; font-weight: 700; color: #666666; text-decoration: none; padding-bottom: 12px; position: relative; cursor: pointer; }
+        .tab-item.active { color: #111111; }
+        .tab-item.active::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: #FA6400; }
 
-        .project-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #111111;
-            margin-bottom: 8px;
-        }
+        /* Detail Cards */
+        .details-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.02); }
+        .about-text { font-size: 14px; line-height: 1.7; color: #444444; margin-bottom: 16px; }
 
-        .project-author-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: #555555;
-            font-weight: 500;
-        }
+        /* Impact Metric Grid */
+        .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .impact-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.02); }
+        .impact-icon { font-size: 20px; margin-bottom: 8px; color: #FA6400; }
+        .impact-value { font-size: 24px; font-weight: 800; color: #111111; margin-bottom: 2px; }
+        .impact-label { font-size: 11px; font-weight: 600; color: #777777; text-transform: uppercase; }
 
-        .author-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        /* Right Sidebar Summary Card */
+        .funding-summary-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 32px; }
+        .amount-raised { font-size: 32px; font-weight: 800; color: #FA6400; margin-bottom: 4px; }
+        .goal-label { font-size: 13px; color: #666666; margin-bottom: 20px; font-weight: 500; }
+        
+        .progress-bar-bg { background: #E5E7EB; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 24px; width: 100%; }
+        .progress-bar-fill { height: 100%; background: #FA6400; border-radius: 4px; }
+        .progress-bar-fill.funded { background: #10B981; }
 
-        /* Main Content Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 32px;
-        }
+        .stats-row { display: flex; gap: 48px; margin-bottom: 24px; }
+        .stat-value { font-size: 22px; font-weight: 800; color: #111111; }
+        .stat-label { font-size: 12px; color: #777777; font-weight: 500; }
+        
+        .btn-back-project { width: 100%; background: #FA6400; color: #FFFFFF; border: none; padding: 16px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn-back-project:hover { background: #E05800; }
 
-        /* Left Column */
-        .left-col {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
+        /* Reward Tiers Sidebar Cards */
+        .tiers-heading { font-size: 18px; font-weight: 800; color: #111111; margin-bottom: 16px; }
+        
+        .reward-tier-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 12px; padding: 20px; margin-bottom: 16px; position: relative; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.02); }
+        .tier-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #F3F4F6; padding-bottom: 8px; }
+        .tier-title { font-size: 13px; font-weight: 700; color: #333333; }
+        .tier-amount { font-size: 18px; font-weight: 800; color: #FA6400; }
+        .tier-desc { font-size: 12px; color: #666666; line-height: 1.5; }
+        
+        .popular-badge { position: absolute; top: -10px; right: 16px; background: #FA6400; color: #FFFFFF; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
 
-        .banner-container {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            height: 380px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .banner-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .funded-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background-color: #10B981;
-            color: #FFFFFF;
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* Tabs Navigation */
-        .tab-nav {
-            display: flex;
-            gap: 24px;
-            border-bottom: 2px solid #EFEFEF;
-            padding-bottom: 8px;
-        }
-
-        .tab-item {
-            font-size: 14px;
-            font-weight: 600;
-            color: #666666;
-            text-decoration: none;
-            padding-bottom: 8px;
-        }
-
-        .tab-item.active {
-            color: #FA6400;
-            border-bottom: 2px solid #FA6400;
-            margin-bottom: -10px;
-        }
-
-        /* About Section Card */
-        .details-card {
-            background: #FFFFFF;
-            border: 1px solid #EFEFEF;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
-        }
-
-        .about-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #444444;
-            margin-bottom: 16px;
-        }
-
-        /* Impact Highlights Grid */
-        .impact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .impact-card {
-            background: #FFFFFF;
-            border: 1px solid #EFEFEF;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
-        }
-
-        .impact-icon {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .impact-value {
-            font-size: 20px;
-            font-weight: 800;
-            color: #111111;
-        }
-
-        .impact-label {
-            font-size: 12px;
-            color: #777777;
-            margin-top: 2px;
-        }
-
-        /* Right Sidebar Column */
-        .right-col {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .funding-summary-card {
-            background: #FFFFFF;
-            border: 1px solid #EFEFEF;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
-        }
-
-        .amount-raised {
-            font-size: 28px;
-            font-weight: 800;
-            color: #FA6400;
-            margin-bottom: 4px;
-        }
-
-        .goal-label {
-            font-size: 12px;
-            color: #666666;
-            margin-bottom: 16px;
-        }
-
-        .progress-bar-bg {
-            background: #E5E7EB;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: #FA6400;
-            border-radius: 4px;
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .stat-value {
-            font-size: 20px;
-            font-weight: 800;
-            color: #111111;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #777777;
-        }
-
-        .btn-back-project {
-            width: 100%;
-            background: #FA6400;
-            color: #FFFFFF;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .sidebar-section-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: #111111;
-            margin-bottom: 12px;
-        }
-
-        /* Tier Cards */
-        .tier-card {
-            background: #FFFFFF;
-            border: 1px solid #EFEFEF;
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.015);
-        }
-
-        .tier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .tier-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #111111;
-        }
-
-        .tier-price {
-            font-size: 18px;
-            font-weight: 800;
-            color: #FA6400;
-        }
-
-        .tier-desc {
-            font-size: 12px;
-            color: #666666;
-            line-height: 1.5;
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -10px;
-            right: 16px;
-            background: #FA6400;
-            color: #FFFFFF;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid #EFEFEF;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #777777;
-        }
-
-        .footer-brand {
-            font-size: 16px;
-            font-weight: 800;
-            color: #FA6400;
-            margin-bottom: 4px;
-        }
-
-        .footer-links a {
-            color: #555555;
-            text-decoration: none;
-            margin-left: 16px;
-        }
+        /* Site Footer */
+        .site-footer { background: #FFFFFF; border-top: 1px solid #EFEFEF; padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; margin-top: 48px; }
+        .brand-name { font-size: 18px; font-weight: 800; color: #FA6400; margin-bottom: 4px; }
+        .copyright { font-size: 12px; color: #666666; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-link { text-decoration: none; color: #555555; font-size: 13px; font-weight: 500; }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <!-- Top Navbar -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="../Default.aspx" class="brand-logo">CrowdBridge</a>
+                <a href="ProjectSearch.aspx" class="nav-link">Explore Projects</a>
+            </div>
+            <div class="nav-right">
+                <asp:HyperLink ID="hlSignIn" runat="server" NavigateUrl="~/Home/Login.aspx" CssClass="btn-signin-nav">Sign In</asp:HyperLink>
+            </div>
+        </nav>
+
         <div class="container">
-            <!-- Back Button -->
             <a href="ProjectSearch.aspx" class="back-btn">&larr; Back to Search Projects</a>
 
-            <!-- Header Title -->
+            <!-- Header Title and Creator Meta -->
             <div class="project-header">
-                <h1 class="project-title">Urban Oasis Hydroponics</h1>
-                <div class="project-author-meta">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Ananya Sharma" class="author-avatar" />
-                    <span>Ananya Sharma &#10004;</span>
-                    <span>&bull; Pune, Maharashtra</span>
+                <h1 class="project-title"><asp:Label ID="lblTitle" runat="server"></asp:Label></h1>
+                <div class="creator-meta-row">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="author-avatar" alt="Author Avatar" />
+                    <span class="author-name"><asp:Label ID="lblCreatorName" runat="server" Text="Ananya Sharma"></asp:Label> <span class="verified-check">✓</span></span>
+                    <span class="location-badge">📍 <asp:Label ID="lblCity" runat="server"></asp:Label>, India</span>
                 </div>
             </div>
 
-            <!-- Content Grid -->
+            <!-- Main Grid Layout -->
             <div class="main-layout">
-                
-                <!-- Left Side -->
+                <!-- Left Column -->
                 <div class="left-col">
                     <div class="banner-container">
-                        <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800" alt="Urban Oasis Hydroponics Banner" class="banner-img" />
-                        <span class="funded-badge">126% Funded</span>
+                        <asp:Image ID="imgBanner" runat="server" CssClass="banner-img" />
+                        <asp:Label ID="lblBadge" runat="server" CssClass="funded-badge"></asp:Label>
                     </div>
 
-                    <div class="tab-nav">
-                        <a href="#" class="tab-item active">About Project</a>
-                        <a href="#" class="tab-item">Budget Breakup</a>
-                        <a href="#" class="tab-item">Updates &amp; Timeline</a>
-                        <a href="#" class="tab-item">Backer Community</a>
+                    <!-- Navigation Tabs -->
+                    <div class="content-tabs">
+                        <span class="tab-item active">About Project</span>
+                        <span class="tab-item">Budget Breakup</span>
+                        <span class="tab-item">Updates & Timeline</span>
+                        <span class="tab-item">Backer Community</span>
                     </div>
 
+                    <!-- Story Paragraphs -->
                     <div class="details-card">
-                        <p class="about-text">
-                            Empowering Pune's urban communities with sustainable vertical farming that uses 90% less water than traditional agriculture. Our mission is to bring fresh, pesticide-free produce to every doorstep while revitalizing urban spaces.
-                        </p>
-                        <p class="about-text">
-                            By supporting this project, you're helping us scale our hydroponic systems to provide affordable nutrition and green jobs to local residents. Join us in building a greener, more resilient Pune.
-                        </p>
+                        <p class="about-text"><asp:Label ID="lblDescription" runat="server"></asp:Label></p>
+                        <p class="about-text">By supporting this initiative on CrowdBridge, you are directly contributing to vetted field expansion, local employment generation, and sustainable community advancement. Track live progress directly through our backer dashboard.</p>
                     </div>
 
+                    <!-- Dynamic Impact Metrics -->
                     <div class="impact-grid">
                         <div class="impact-card">
-                            <div class="impact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            </div>
-                            <div class="impact-value">5,000 kg</div>
-                            <div class="impact-label">Yield per year</div>
+                            <div class="impact-icon">🌱</div>
+                            <div class="impact-value"><asp:Label ID="lblMetric1Val" runat="server" Text="5,000 kg"></asp:Label></div>
+                            <div class="impact-label"><asp:Label ID="lblMetric1Lbl" runat="server" Text="Yield per year"></asp:Label></div>
                         </div>
                         <div class="impact-card">
-                            <div class="impact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                            </div>
-                            <div class="impact-value">12</div>
-                            <div class="impact-label">Local jobs created</div>
+                            <div class="impact-icon">💼</div>
+                            <div class="impact-value"><asp:Label ID="lblMetric2Val" runat="server" Text="12"></asp:Label></div>
+                            <div class="impact-label"><asp:Label ID="lblMetric2Lbl" runat="server" Text="Jobs created"></asp:Label></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Side -->
+                <!-- Right Sidebar Column -->
                 <div class="right-col">
                     <div class="funding-summary-card">
-                        <div class="amount-raised">&#x20B9;15,20,000</div>
-                        <div class="goal-label">Raised of &#x20B9;12,000,000 goal</div>
+                        <div class="amount-raised">&#x20B9;<asp:Label ID="lblRaised" runat="server"></asp:Label></div>
+                        <div class="goal-label">Raised of &#x20B9;<asp:Label ID="lblGoal" runat="server"></asp:Label> goal</div>
 
                         <div class="progress-bar-bg">
-                            <div class="progress-bar-fill" style="width: 100%;"></div>
+                            <asp:Panel ID="pnlProgress" runat="server" CssClass="progress-bar-fill"></asp:Panel>
                         </div>
 
                         <div class="stats-row">
                             <div>
-                                <div class="stat-value">142</div>
+                                <div class="stat-value"><asp:Label ID="lblBackersCount" runat="server" Text="142"></asp:Label></div>
                                 <div class="stat-label">Backers</div>
                             </div>
                             <div>
-                                <div class="stat-value">15</div>
+                                <div class="stat-value"><asp:Label ID="lblDaysLeft" runat="server"></asp:Label></div>
                                 <div class="stat-label">Days Left</div>
                             </div>
                         </div>
 
-                        <asp:Button ID="btnBackProject" runat="server" Text="Back This Project Now" CssClass="btn-back-project" />
+                        <asp:Button ID="btnBackProject" runat="server" Text="Back This Project Now" CssClass="btn-back-project" OnClick="btnBackProject_Click" />
                     </div>
 
-                    <h3 class="sidebar-section-title">Interactive Reward Tiers</h3>
+                    <!-- Interactive Reward Tiers Section -->
+                    <h3 class="tiers-heading">Interactive Reward Tiers</h3>
 
-                    <!-- Tier 1 -->
-                    <div class="tier-card">
+                    <div class="reward-tier-card">
                         <div class="tier-header">
                             <span class="tier-title">Supporter Tier</span>
-                            <span class="tier-price">&#x20B9;500</span>
+                            <span class="tier-amount">&#x20B9;500</span>
                         </div>
-                        <p class="tier-desc">Digital Certificate + Name on Farm Wall</p>
+                        <p class="tier-desc">Digital Supporter Certificate + Wall of Fame Recognition</p>
                     </div>
 
-                    <!-- Tier 2 -->
-                    <div class="tier-card">
+                    <div class="reward-tier-card">
                         <div class="tier-header">
                             <span class="tier-title">Pioneer Tier</span>
-                            <span class="tier-price">&#x20B9;2,500</span>
+                            <span class="tier-amount">&#x20B9;2,500</span>
                         </div>
-                        <p class="tier-desc">Fresh Hydroponic Veggie Basket + Monthly Farm Newsletter</p>
+                        <p class="tier-desc">Early Access Field Kit + Monthly Progress Updates & Newsletter</p>
                     </div>
 
-                    <!-- Tier 3 -->
-                    <div class="tier-card">
+                    <div class="reward-tier-card">
                         <span class="popular-badge">Popular</span>
                         <div class="tier-header">
                             <span class="tier-title">Sponsor Tier</span>
-                            <span class="tier-price">&#x20B9;10,000</span>
+                            <span class="tier-amount">&#x20B9;10,000</span>
                         </div>
-                        <p class="tier-desc">1 Home Hydroponic Starter Kit + VIP Farm Tour in Pune</p>
+                        <p class="tier-desc">1 Starter Innovation Kit + VIP On-Site Tour & Founder Session</p>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Footer -->
-            <footer class="footer">
-                <div>
-                    <div class="footer-brand">CrowdBridge</div>
-                    <div>&copy; 2024 CrowdBridge India. Empowering communities together.</div>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Support</a>
-                    <a href="#">About Us</a>
-                </div>
-            </footer>
         </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div>
+                <div class="brand-name">CrowdBridge</div>
+                <div class="copyright">&copy; 2026 CrowdBridge India. Empowering communities together.</div>
+            </div>
+            <div class="footer-links">
+                <a href="../Support.aspx" class="footer-link">Support</a>
+                <a href="../About.aspx" class="footer-link">About Us</a>
+            </div>
+        </footer>
     </form>
 </body>
 </html>

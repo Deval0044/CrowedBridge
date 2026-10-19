@@ -1,39 +1,82 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CrowedBridge
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Default : Page
     {
-        // Explicit Control Declarations to prevent CS0103 build errors
-        protected Repeater rptCampaigns;
-        protected HyperLink hlStartCampaign;
+        // Explicit control declarations to prevent CS0103 build errors
+        protected global::System.Web.UI.WebControls.HyperLink hlSignIn;
+        protected global::System.Web.UI.WebControls.Panel pnlUserBanner;
+        protected global::System.Web.UI.WebControls.Repeater rptCampaigns;
+        protected global::System.Web.UI.WebControls.Image imgHeroBg;
+        protected global::System.Web.UI.WebControls.HyperLink hlStartFunding;
+
+        public class ProjectItem
+        {
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public string Category { get; set; }
+            public string City { get; set; }
+            public string Description { get; set; }
+            public string ImageUrl { get; set; }
+            public string BadgeText { get; set; }
+            public string Raised { get; set; }
+            public string Goal { get; set; }
+            public int DaysLeft { get; set; }
+            public int Progress { get; set; }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadFeaturedCampaigns();
+                CheckAuthenticationStatus();
+                LoadCampaigns();
             }
         }
 
-        private void LoadFeaturedCampaigns()
+        private void CheckAuthenticationStatus()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Title", typeof(string));
-            dt.Columns.Add("Category", typeof(string));
-            dt.Columns.Add("Description", typeof(string));
-            dt.Columns.Add("Raised", typeof(string));
-            dt.Columns.Add("Progress", typeof(int));
-            dt.Columns.Add("Creator", typeof(string));
+            if (Session["User"] != null && hlSignIn != null)
+            {
+                hlSignIn.Text = "My Dashboard";
+                hlSignIn.NavigateUrl = "~/Home/UserDashboard.aspx";
+                if (pnlUserBanner != null) pnlUserBanner.Visible = true;
+            }
+        }
 
-            dt.Rows.Add("Solar Cold Storage for Farmers", "CleanTech", "Providing solar-powered refrigeration units to rural farmers to reduce crop wastage.", "₹12,50,000", 70, "Sunil Verma");
-            dt.Rows.Add("Digital Looms for Village Artisans", "Artisans", "Upgrading traditional handlooms with automated design patterns for higher yield.", "₹4,20,000", 50, "Ritu Devi");
-            dt.Rows.Add("Mobile Health Van for District 4", "Healthcare", "Deploying primary healthcare diagnostic tools on wheel units for remote tribal areas.", "₹21,00,000", 85, "Dr. K. Patel");
+        private void LoadCampaigns()
+        {
+            var list = new List<ProjectItem>
+            {
+                new ProjectItem { Id = 1, Title = "Urban Oasis Hydroponics", Category = "AGRITECH", City = "PUNE", Description = "Empowering urban communities to grow pesticide-free vegetables.", ImageUrl = "~/Images/1.jpg", BadgeText = "Funded", Raised = "15.2L", Goal = "12.0L", DaysLeft = 12, Progress = 100 },
+                new ProjectItem { Id = 2, Title = "NextGen Coding Academies", Category = "EDUTECH", City = "BANGALORE", Description = "Bridging the digital divide by setting up state-of-the-art coding labs.", ImageUrl = "~/Images/2.jpg", BadgeText = "Urgent", Raised = "18.7L", Goal = "25.0L", DaysLeft = 5, Progress = 75 },
+                new ProjectItem { Id = 3, Title = "Heritage Weavers Collective", Category = "ARTISANS & CRAFTS", City = "JAIPUR", Description = "Modernizing supply chain access for local pottery and weaving artisans.", ImageUrl = "~/Images/3.jpg", BadgeText = "", Raised = "4.5L", Goal = "10.0L", DaysLeft = 28, Progress = 45 },
+                new ProjectItem { Id = 4, Title = "Surya Community Microgrids", Category = "CLEANTECH", City = "DELHI", Description = "Deploying affordable decentralized solar microgrids to rural housing centers.", ImageUrl = "~/Images/4.jpg", BadgeText = "", Raised = "42.5L", Goal = "50.0L", DaysLeft = 15, Progress = 85 }
+            };
 
-            rptCampaigns.DataSource = dt;
-            rptCampaigns.DataBind();
+            // Additional featured campaigns unlocked when user is authenticated
+            if (Session["User"] != null)
+            {
+                list.Add(new ProjectItem { Id = 5, Title = "Bio-Gas Container Processing", Category = "CLEANTECH", City = "PUNE", Description = "Converting organic municipal waste into clean cooking gas.", ImageUrl = "~/Images/5.jpg", BadgeText = "Trending", Raised = "22.0L", Goal = "25.0L", DaysLeft = 9, Progress = 88 });
+                list.Add(new ProjectItem { Id = 6, Title = "Mobile Tele-Clinic Diagnostic Van", Category = "HEALTHCARE", City = "BANGALORE", Description = "Deploying solar diagnostic vans with primary healthcare equipment.", ImageUrl = "~/Images/6.jpg", BadgeText = "Urgent", Raised = "8.2L", Goal = "10.0L", DaysLeft = 4, Progress = 82 });
+            }
+
+            if (rptCampaigns != null)
+            {
+                rptCampaigns.DataSource = list;
+                rptCampaigns.DataBind();
+            }
+        }
+
+        public string GetBadgeMarkup(string badge)
+        {
+            if (string.IsNullOrEmpty(badge)) return "";
+            string css = badge == "Funded" ? "badge-funded" : "badge-urgent";
+            return $"<span class=\"badge {css}\">{badge}</span>";
         }
     }
 }

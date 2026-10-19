@@ -99,8 +99,18 @@
     <Content Include="Home\ProjectDetails.aspx" />
     <Content Include="Home\ProjectSearch.aspx" />
     <Content Include="Home\UserRegister.aspx" />
-    <Content Include="Login.aspx" />
-    <Content Include="Register.aspx" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\11.jpeg" />
+    <Content Include="Images\13.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\5.jpg" />
+    <Content Include="Images\6.jpg" />
+    <Content Include="Images\7.jpg" />
+    <Content Include="Images\8.jpg" />
+    <Content Include="Images\9.jpg" />
+    <Content Include="Images\hero-bg.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +163,7 @@
     <Compile Include="Admin\UserDirectory.aspx.designer.cs">
       <DependentUpon>UserDirectory.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\DbHelper.cs" />
     <Compile Include="Backers\AuthenticatedHomepage.aspx.cs">
       <DependentUpon>AuthenticatedHomepage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -290,15 +301,7 @@
     <Compile Include="Home\UserRegister.aspx.designer.cs">
       <DependentUpon>UserRegister.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
