@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrowedBridge
+namespace CrowedBridge.Home
 {
 
 

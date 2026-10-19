@@ -51,6 +51,15 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
+        /// imgSupported1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgSupported1;
+
+        /// <summary>
         /// btnUpdate1 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate1;
+
+        /// <summary>
+        /// imgSupported2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgSupported2;
 
         /// <summary>
         /// btnUpdate2 control.
@@ -69,6 +87,15 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Button btnUpdate2;
 
         /// <summary>
+        /// imgRec1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRec1;
+
+        /// <summary>
         /// btnDetails1 control.
         /// </summary>
         /// <remarks>
@@ -78,6 +105,15 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Button btnDetails1;
 
         /// <summary>
+        /// imgRec2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRec2;
+
+        /// <summary>
         /// btnDetails2 control.
         /// </summary>
         /// <remarks>
@@ -85,6 +121,15 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDetails2;
+
+        /// <summary>
+        /// imgRec3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRec3;
 
         /// <summary>
         /// btnDetails3 control.

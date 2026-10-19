@@ -35,20 +35,19 @@ namespace CrowedBridge.Backers
 
         protected void btnStartProject_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Creator/Dashboard.aspx");
+            Response.Redirect("~/Home/ProjectSearch.aspx");
         }
 
         protected void btnUpdate1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Backers/ProjectDetails.aspx?id=1");
+            Response.Redirect("~/Home/ProjectDetails.aspx?id=1");
         }
 
         protected void btnUpdate2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Backers/ProjectDetails.aspx?id=2");
+            Response.Redirect("~/Home/ProjectDetails.aspx?id=8");
         }
 
-        // REDIRECT TO SmartIrrigationSensors.aspx HERE:
         protected void btnDetails1_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Backers/SmartIrrigationSensors.aspx");
@@ -56,19 +55,19 @@ namespace CrowedBridge.Backers
 
         protected void btnDetails2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Backers/ProjectDetails.aspx?id=4");
+            Response.Redirect("~/Home/ProjectDetails.aspx?id=7");
         }
 
         protected void btnDetails3_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Backers/ProjectDetails.aspx?id=5");
+            Response.Redirect("~/Home/ProjectDetails.aspx?id=3");
         }
 
         protected void btnSignOut_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("~/UserRegister.aspx");
+            Response.Redirect("~/Home/Login.aspx");
         }
     }
 }

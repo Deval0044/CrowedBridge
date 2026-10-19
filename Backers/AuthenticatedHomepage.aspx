@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>CrowdBridge - Home</title>
+    <title>CrowdBridge - Backer Portal</title>
     <style>
         * {
             box-sizing: border-box;
@@ -42,7 +42,7 @@
         .brand-logo {
             font-size: 22px;
             font-weight: 800;
-            color: #E85D04;
+            color: #FA6400;
             text-decoration: none;
             letter-spacing: -0.5px;
         }
@@ -64,7 +64,7 @@
 
         .search-input:focus {
             background-color: #FFFFFF;
-            border-color: #E85D04;
+            border-color: #FA6400;
         }
 
         .search-icon {
@@ -91,6 +91,8 @@
         .nav-link.active {
             color: #111827;
             font-weight: 700;
+            border-bottom: 2px solid #FA6400;
+            padding-bottom: 2px;
         }
 
         .location-badge {
@@ -112,7 +114,7 @@
         }
 
         .btn-start-project {
-            background-color: #E85D04;
+            background-color: #FA6400;
             color: #FFFFFF;
             border: none;
             padding: 8px 16px;
@@ -120,6 +122,8 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .icon-badge-wrap {
@@ -132,7 +136,7 @@
             position: absolute;
             top: -2px;
             right: -2px;
-            background-color: #E85D04;
+            background-color: #FA6400;
             color: #FFFFFF;
             font-size: 9px;
             font-weight: 700;
@@ -256,7 +260,7 @@
         .view-all-link {
             font-size: 12px;
             font-weight: 600;
-            color: #E85D04;
+            color: #FA6400;
             text-decoration: none;
         }
 
@@ -346,7 +350,7 @@
         }
 
         .progress-bar-fill {
-            background: #E85D04;
+            background: #FA6400;
             height: 100%;
             border-radius: 3px;
         }
@@ -403,7 +407,7 @@
         .campaign-meta {
             font-size: 11px;
             font-weight: 700;
-            color: #E85D04;
+            color: #FA6400;
             letter-spacing: 0.5px;
             margin-bottom: 6px;
         }
@@ -433,6 +437,12 @@
             cursor: pointer;
             width: 100%;
             text-align: center;
+        }
+
+        .btn-view-details:hover {
+            background-color: #FA6400;
+            color: #FFFFFF;
+            border-color: #FA6400;
         }
 
         /* Community Impact Section */
@@ -482,6 +492,7 @@
             align-items: center;
             font-size: 12px;
             color: #6B7280;
+            margin-top: auto;
         }
 
         .footer-brand {
@@ -493,11 +504,16 @@
         .footer-links {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .footer-link {
             color: #6B7280;
             text-decoration: none;
+            cursor: pointer;
+        }
+        .footer-link:hover {
+            color: #FA6400;
         }
     </style>
 </head>
@@ -515,7 +531,7 @@
 
             <div class="nav-center">
                 <a href="AuthenticatedHomepage.aspx" class="nav-link active">Explore</a>
-                <a href="#" class="nav-link">Impact</a>
+                <a href="#impact" class="nav-link">Impact</a>
                 <span class="location-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     Pune, Maharashtra
@@ -549,14 +565,14 @@
             <!-- Welcome Banner -->
             <div class="welcome-card">
                 <div class="welcome-text">
-                    <h1>Welcome back, <asp:Label ID="lblUserName" runat="server"></asp:Label>! &#12807B;</h1>
+                    <h1>Welcome back, <asp:Label ID="lblUserName" runat="server"></asp:Label>! </h1>
                     <p>You have backed 4 projects and helped raise &#x20B9;14,500 for local innovations.</p>
                 </div>
                 <div class="pill-group">
                     <button type="button" class="pill">Browse AgriTech</button>
                     <button type="button" class="pill">Recommended for You</button>
                     <button type="button" class="pill">Projects Ending Soon</button>
-                    <button type="button" class="pill active">&#128205; Local to Pune</button>
+                    <button type="button" class="pill active"> Local to Pune</button>
                 </div>
             </div>
 
@@ -569,7 +585,7 @@
             <div class="supported-grid">
                 <!-- Card 1 -->
                 <div class="supported-card">
-                    <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=300" class="supported-img" alt="Urban Oasis" />
+                    <asp:Image ID="imgSupported1" runat="server" ImageUrl="~/Images/1.jpg" CssClass="supported-img" AlternateText="Urban Oasis Hydroponics" />
                     <div class="supported-body">
                         <div>
                             <div class="card-top">
@@ -587,7 +603,7 @@
 
                 <!-- Card 2 -->
                 <div class="supported-card">
-                    <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&q=80&w=300" class="supported-img" alt="Solar Cold Storage" />
+                    <asp:Image ID="imgSupported2" runat="server" ImageUrl="~/Images/8.jpg" CssClass="supported-img" AlternateText="Solar Cold Storage" />
                     <div class="supported-body">
                         <div>
                             <div class="card-top">
@@ -612,7 +628,7 @@
             <div class="recommended-grid">
                 <!-- Rec Card 1 -->
                 <div class="campaign-card">
-                    <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Sensors" />
+                    <asp:Image ID="imgRec1" runat="server" ImageUrl="~/Images/6.jpg" CssClass="campaign-img" AlternateText="Smart Irrigation Sensors" />
                     <div class="campaign-content">
                         <div>
                             <div class="campaign-meta">AGRITECH &bull; NASHIK</div>
@@ -630,7 +646,7 @@
 
                 <!-- Rec Card 2 -->
                 <div class="campaign-card">
-                    <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Straws" />
+                    <asp:Image ID="imgRec2" runat="server" ImageUrl="~/Images/7.jpg" CssClass="campaign-img" AlternateText="Eco Straws from Coconut Leaves" />
                     <div class="campaign-content">
                         <div>
                             <div class="campaign-meta">CLEANTECH &bull; KERALA</div>
@@ -648,7 +664,7 @@
 
                 <!-- Rec Card 3 -->
                 <div class="campaign-card">
-                    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&q=80&w=400" class="campaign-img" alt="Pottery" />
+                    <asp:Image ID="imgRec3" runat="server" ImageUrl="~/Images/3.jpg" CssClass="campaign-img" AlternateText="Handmade Pottery Collective" />
                     <div class="campaign-content">
                         <div>
                             <div class="campaign-meta">ARTISANS &bull; JAIPUR</div>
@@ -666,7 +682,7 @@
             </div>
 
             <!-- Collective Impact Banner -->
-            <div class="impact-section">
+            <div class="impact-section" id="impact">
                 <h2 class="impact-title">Your Collective Community Impact in 2026</h2>
                 <div class="impact-stats-grid">
                     <div>
