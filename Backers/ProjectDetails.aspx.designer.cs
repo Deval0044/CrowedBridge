@@ -33,6 +33,15 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Label lblTitle;
 
         /// <summary>
+        /// lblCreatorName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatorName;
+
+        /// <summary>
         /// lblCity control.
         /// </summary>
         /// <remarks>
@@ -40,15 +49,6 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCity;
-
-        /// <summary>
-        /// lblCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
         /// imgBanner control.
@@ -60,13 +60,13 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Image imgBanner;
 
         /// <summary>
-        /// lblPctBadge control.
+        /// lblBadge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPctBadge;
+        protected global::System.Web.UI.WebControls.Label lblBadge;
 
         /// <summary>
         /// lblDescription control.
@@ -76,6 +76,42 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDescription;
+
+        /// <summary>
+        /// lblMetric1Val control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMetric1Val;
+
+        /// <summary>
+        /// lblMetric1Lbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMetric1Lbl;
+
+        /// <summary>
+        /// lblMetric2Val control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMetric2Val;
+
+        /// <summary>
+        /// lblMetric2Lbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMetric2Lbl;
 
         /// <summary>
         /// lblRaised control.
@@ -96,15 +132,6 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Label lblGoal;
 
         /// <summary>
-        /// lblPct control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPct;
-
-        /// <summary>
         /// pnlProgress control.
         /// </summary>
         /// <remarks>
@@ -112,6 +139,15 @@ namespace CrowedBridge.Backers
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlProgress;
+
+        /// <summary>
+        /// lblBackersCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBackersCount;
 
         /// <summary>
         /// lblDaysLeft control.
@@ -123,30 +159,66 @@ namespace CrowedBridge.Backers
         protected global::System.Web.UI.WebControls.Label lblDaysLeft;
 
         /// <summary>
-        /// btnBackProjectNow control.
+        /// txtPledgeAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackProjectNow;
+        protected global::System.Web.UI.WebControls.TextBox txtPledgeAmount;
 
         /// <summary>
-        /// btnTier1 control.
+        /// btnBackProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTier1;
+        protected global::System.Web.UI.WebControls.Button btnBackProject;
 
         /// <summary>
-        /// btnTier2 control.
+        /// rfvPledge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTier2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPledge;
+
+        /// <summary>
+        /// rvPledge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvPledge;
+
+        /// <summary>
+        /// btnTier500 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTier500;
+
+        /// <summary>
+        /// btnTier2500 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTier2500;
+
+        /// <summary>
+        /// btnTier10000 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTier10000;
     }
 }

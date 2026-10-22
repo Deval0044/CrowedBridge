@@ -33,21 +33,30 @@ namespace CrowedBridge.Creator
         protected global::System.Web.UI.WebControls.Button btnSignOut;
 
         /// <summary>
-        /// hlBackHome control.
+        /// imgProj1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlBackHome;
+        protected global::System.Web.UI.WebControls.Image imgProj1;
 
         /// <summary>
-        /// btnStartCampaign control.
+        /// imgProj2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStartCampaign;
+        protected global::System.Web.UI.WebControls.Image imgProj2;
+
+        /// <summary>
+        /// imgProj3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgProj3;
     }
 }

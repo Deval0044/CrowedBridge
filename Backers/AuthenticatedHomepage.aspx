@@ -211,7 +211,7 @@
                         <div>
                             <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 90%;"></div></div>
                             <div class="campaign-raised">Raised &#x20B9;4.5L of &#x20B9;5.0L</div>
-                            <a href="SmartIrrigationSensors.aspx" class="btn-view-details">View Details</a>
+                            <a href="ProjectDetails.aspx" class="btn-view-details">View Details</a>
                         </div>
                     </div>
                 </div>
