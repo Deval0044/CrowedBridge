@@ -81,8 +81,10 @@
     </Content>
     <Content Include="Backers\AuthenticatedHomepage.aspx" />
     <Content Include="Backers\BackerLogin.aspx" />
+    <Content Include="Backers\Impact.aspx" />
     <Content Include="Backers\PledgeModal.aspx" />
     <Content Include="Backers\PledgeSuccess.aspx" />
+    <Content Include="Backers\ProjectDetails.aspx" />
     <Content Include="Backers\SmartIrrigationSensors.aspx" />
     <Content Include="Backers\UserProfile.aspx" />
     <Content Include="Creator\BuildReward.aspx" />
@@ -178,6 +180,13 @@
     <Compile Include="Backers\BackerLogin.aspx.designer.cs">
       <DependentUpon>BackerLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Backers\Impact.aspx.cs">
+      <DependentUpon>Impact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\Impact.aspx.designer.cs">
+      <DependentUpon>Impact.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Backers\PledgeModal.aspx.cs">
       <DependentUpon>PledgeModal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -191,6 +200,13 @@
     </Compile>
     <Compile Include="Backers\PledgeSuccess.aspx.designer.cs">
       <DependentUpon>PledgeSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Backers\ProjectDetails.aspx.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backers\ProjectDetails.aspx.designer.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Backers\SmartIrrigationSensors.aspx.cs">
       <DependentUpon>SmartIrrigationSensors.aspx</DependentUpon>

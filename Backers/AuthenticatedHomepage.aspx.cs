@@ -9,10 +9,13 @@ namespace CrowedBridge.Backers
         {
             if (!IsPostBack)
             {
-                if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
-                {
-                    string name = Session["UserName"].ToString().Trim();
+                // Check Session["UserName"] first, fallback to Session["User"]
+                string rawUser = Session["UserName"] != null ? Session["UserName"].ToString() :
+                                (Session["User"] != null ? Session["User"].ToString() : string.Empty);
 
+                if (!string.IsNullOrWhiteSpace(rawUser))
+                {
+                    string name = rawUser.Trim();
                     lblUserName.Text = name;
 
                     string[] parts = name.Split(' ');
@@ -31,36 +34,6 @@ namespace CrowedBridge.Backers
                     lblProfileName.Text = "Rahul V.";
                 }
             }
-        }
-
-        protected void btnStartProject_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home/ProjectSearch.aspx");
-        }
-
-        protected void btnUpdate1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home/ProjectDetails.aspx?id=1");
-        }
-
-        protected void btnUpdate2_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home/ProjectDetails.aspx?id=8");
-        }
-
-        protected void btnDetails1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Backers/SmartIrrigationSensors.aspx");
-        }
-
-        protected void btnDetails2_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home/ProjectDetails.aspx?id=7");
-        }
-
-        protected void btnDetails3_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home/ProjectDetails.aspx?id=3");
         }
 
         protected void btnSignOut_Click(object sender, EventArgs e)

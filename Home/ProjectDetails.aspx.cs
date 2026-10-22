@@ -6,6 +6,24 @@ namespace CrowedBridge.Home
 {
     public partial class ProjectDetails : Page
     {
+        // Explicit control declarations to guarantee Visual Studio binding
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        protected global::System.Web.UI.WebControls.Label lblCreatorName;
+        protected global::System.Web.UI.WebControls.Label lblCity;
+        protected global::System.Web.UI.WebControls.Image imgBanner;
+        protected global::System.Web.UI.WebControls.Label lblBadge;
+        protected global::System.Web.UI.WebControls.Label lblDescription;
+        protected global::System.Web.UI.WebControls.Label lblMetric1Val;
+        protected global::System.Web.UI.WebControls.Label lblMetric1Lbl;
+        protected global::System.Web.UI.WebControls.Label lblMetric2Val;
+        protected global::System.Web.UI.WebControls.Label lblMetric2Lbl;
+        protected global::System.Web.UI.WebControls.Label lblRaised;
+        protected global::System.Web.UI.WebControls.Label lblGoal;
+        protected global::System.Web.UI.WebControls.Label lblBackersCount;
+        protected global::System.Web.UI.WebControls.Label lblDaysLeft;
+        protected global::System.Web.UI.WebControls.Panel pnlProgress;
+        protected global::System.Web.UI.WebControls.HyperLink hlSignIn;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -77,6 +95,8 @@ namespace CrowedBridge.Home
 
         private void SetImpactMetrics(string category)
         {
+            if (string.IsNullOrEmpty(category)) category = "";
+
             switch (category.ToUpper())
             {
                 case "AGRITECH":
