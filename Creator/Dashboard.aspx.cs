@@ -9,7 +9,6 @@ namespace CrowedBridge.Creator
         {
             if (!IsPostBack)
             {
-                // Verify user session
                 if (Session["User"] == null && Session["UserName"] == null)
                 {
                     Response.Redirect("~/Home/Login.aspx");
